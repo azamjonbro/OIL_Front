@@ -22,3 +22,12 @@ theme.addEventListener("click", function () {
  modelOpenBtn.addEventListener("click",function (){
   model.classList.toggle("active")
  })
+ model.addEventListener("click", function (item) {
+  if (item.target.classList.contains("model-user")) {
+    model.classList.remove("active");
+  }
+});
+
+ document.querySelector('.xicon').addEventListener ('click',function(){
+  model.style.display="none"
+ })

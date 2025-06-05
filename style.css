@@ -104,6 +104,11 @@ button, input{
 .model-user.active{
  display: flex;
 }
+.model-header{
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
 .user-form{
  width: 80%;
  background: rgb(49, 49, 49);
