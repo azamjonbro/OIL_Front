@@ -1,0 +1,140 @@
+*,*::after,*::before{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+
+}
+
+:root{
+ --main-bg-color:#ffffff;
+ --main-text-color:#00;
+ --second-text-color:#919191;
+ --main-btn-bg:#3F8CFF;
+ --main-btn-hover:#3A81EB;
+ --main-btn-active:#1F6DE0;
+ --main-btn-disabled:#CED5E0;
+}
+
+body{
+ font-family: Arial, Helvetica, sans-serif;
+}
+a{
+ text-decoration: none;
+}
+li{
+ list-style: none;
+}
+button, input{
+ background: none;
+ border: none;
+ outline: none;
+}
+.container{
+ max-width: 580px;
+ margin: 0  auto;
+ /* background: #ccc; */
+ height: 800px;
+}
+
+
+
+/* main style end */
+
+.active-body {
+ background: rgb(49, 49, 49);
+ color: #fff;
+}
+.header__nav{
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 6px 12px;
+}
+
+.theme{
+ width:40px;
+ height: 20px;
+ background: #ccc;
+ box-shadow: 0px 0px 10px #ccc;
+ border-radius:10px;
+ position: relative;
+ cursor: pointer;
+}
+.theme::after{
+ position: absolute;
+ content: "";
+ top: 3px;
+ left: 3px;
+ width: 14px;
+ height: 14px;
+ border-radius: 50%;
+ background: #1F6DE0 ;
+}
+.theme.active-toggle::after {
+  left: auto;
+  right: 3px;
+  transition: all 3s;
+}
+
+.active-toggle {
+  background: white;
+}
+
+.header-created-btn{
+ background: var(--main-btn-bg);
+ padding: 8px 20px;
+ border-radius: 8px;
+ color: #fff;
+ cursor: pointer;
+}
+/* main style product */
+
+
+.model-user{
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: #cccccc71;
+ backdrop-filter: blur(5px);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.user-form{
+ width: 80%;
+ height: 63%;
+ background: rgb(49, 49, 49);
+ border-radius: 12px;
+ padding: 12px;
+ color: #fff;
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+ text-align: center;
+}
+.model-form{
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+}
+
+.input{
+ color: #fff;
+ padding: 10px  12px;
+ background: #646464;
+ font-size: 14px;
+ border-radius: 6px;
+}
+.input::placeholder{
+ color: #c8c5c5;
+}
+.user-line{
+ display: flex;
+ gap: 12px;
+}
+.user-line>input{
+  width: 50%;
+}
