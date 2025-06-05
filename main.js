@@ -1,3 +1,6 @@
+"use strict"
+
+
 let theme = document.querySelector(".theme")
 let body = document.querySelector("body")
 theme.addEventListener("click", function () {
@@ -7,4 +10,15 @@ theme.addEventListener("click", function () {
  }else {
   body.classList.remove("active-body")
  }
+ })
+
+
+
+ // model connections
+
+ let model = document.querySelector(".model-user")
+ let modelOpenBtn = document.querySelector("#openModal")
+
+ modelOpenBtn.addEventListener("click",function (){
+  model.classList.toggle("active")
  })

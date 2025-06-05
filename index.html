@@ -6,6 +6,8 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta name="author" content="azamjonbro, Azamjonbro">
  <meta name="description" content="this telegram bot is created oil factory and car work shop">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
  <link rel="stylesheet" href="./style.css">
  <title>Oil Project</title>
 </head>
@@ -15,7 +17,7 @@
   <div class="container header__container">
    <nav class="header__nav">
     <div class="theme"></div>
-    <button aria-label="Yaratish" class="header-created-btn" title="yaratish">Yaratish</button>
+    <button aria-label="Yaratish" class="header-created-btn" title="yaratish" id="openModal">Yaratish</button>
    </nav>
   </div>
  </header>
@@ -43,11 +45,9 @@
       <input type="text" class="input" placeholder="Moy markasi" id="oil_brand" name="oil_brand"
        pattern="[A-Za-z0-9\s\-]{2,30}" title="Masalan: ZIC X7 10W-40" required>
 
-      <!-- Quyilgan vaqti (sana turi) -->
-      <input type="date" class="input" placeholder="Quyilgan vaqti" id="oil_date" name="oil_date" required>
+     <input type="text" id="oil_date" class="input" placeholder="Quyilgan vaqti">
+<input type="text" id="next_oil_date" class="input" placeholder="Yangilash vaqti">
 
-      <!-- Yangilash vaqti (sana turi) -->
-      <input type="date" class="input" placeholder="Yangilash vaqti" id="next_oil_date" name="next_oil_date" required>
 
     </div>
     <button class="header-created-btn">Yaratish</button>
@@ -55,7 +55,17 @@
    </div>
   </section>
  </main>
+ <script>
+  flatpickr("#oil_date", {
+    dateFormat: "Y-m-d"
+  });
+  flatpickr("#next_oil_date", {
+    dateFormat: "Y-m-d"
+  });
+
+ </script>
  <script src="./main.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 
 </html>

@@ -33,7 +33,6 @@ button, input{
  max-width: 580px;
  margin: 0  auto;
  /* background: #ccc; */
- height: 800px;
 }
 
 
@@ -95,17 +94,17 @@ button, input{
  top: 0;
  left: 0;
  width: 100%;
- height: 100%;
  background: #cccccc71;
  backdrop-filter: blur(5px);
- display: flex;
+ display: none;
  justify-content: center;
  align-items: center;
 }
-
+.model-user.active{
+ display: flex;
+}
 .user-form{
  width: 80%;
- height:78%;
  background: rgb(49, 49, 49);
  border-radius: 12px;
  padding: 12px;
