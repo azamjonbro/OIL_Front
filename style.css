@@ -143,3 +143,25 @@ button, input{
 .user-line>input{
   width: 50%;
 }
+
+
+/* Users list */
+
+.user-header{
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+.left{
+ display: flex;
+ gap: 10px;
+}
+.SearchUser{
+ background: #646464;
+ padding:8px 12px;
+ border-radius: 8px;
+ color: #fff;
+}
+.SearchUser::placeholder{
+ color: #c8c5c5;
+}
