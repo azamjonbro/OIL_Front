@@ -82,7 +82,7 @@ function renderUsers(users) {
 let counter = document.querySelector('#counter')
 async function getAllUsers() {
   try {
-    const res = await fetch('http://37.252.20.41:5000/clients');
+    const res = await fetch('https://safonon.uz/clients');
     const data = await res.json();
     allUsers = data.reverse();
     renderUsers(allUsers);
@@ -140,7 +140,7 @@ const createBtn = document.querySelector("#clientCreatebtn");
     };
 
     try {
-      const res = await fetch("http://37.252.20.41:5000/clients", {
+      const res = await fetch("https://safonon.uz/clients", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
