@@ -38,6 +38,7 @@ input,button{
 .container {
   max-width: 580px;
   margin: 0 auto;
+  padding: 10px;
 }
 
 .header__nav {

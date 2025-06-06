@@ -31,3 +31,79 @@ modal.addEventListener("click", function (event) {
     modal.classList.remove("active");
   }
 });
+// back end integratsiya
+
+
+const searchInput = document.querySelector(".SearchUser");
+const usersContainer = document.querySelector(".user-list"); // Bu containerga user-cardlar joylanadi
+let allUsers = []; // barcha userlar saqlanadi
+
+// User card yaratish funksiyasi
+
+function formatDate(isoDate) {
+  const date = new Date(isoDate);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // 0-based
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+}
+function createUserCard(user) {
+  console.log(user);
+  
+  return `
+    <div class="user-card">
+      <div class="user-top">
+        <div class="user-name">${user.name}</div>
+        <div class="user-phone">${user.phone}</div>
+      </div>
+      <div class="user-car">🚗 ${user.carNumber}</div>
+      <div class="user-oil">🛢 ${user.oilBrand}</div>
+      <div class="user-dates">
+        <span>⛽ ${formatDate(user.createdAt)}</span>
+        <span>🔁 ${formatDate(user.filledAt)}</span>
+      </div>
+    </div>
+  `;
+}
+
+// Barcha userlarni ekranga chiqarish
+function renderUsers(users) {
+  usersContainer.innerHTML = "";
+  if (users.length === 0) {
+    usersContainer.innerHTML = `<p>Hech qanday mos foydalanuvchi topilmadi</p>`;
+    return;
+  }
+  users.forEach(user => {
+    usersContainer.innerHTML += createUserCard(user);
+  });
+}
+
+// Backenddan ma'lumotlarni olish
+let counter = document.querySelector('#counter')
+async function getAllUsers() {
+  try {
+    const res = await fetch('http://localhost:5000/clients');
+    const data = await res.json();
+    allUsers = data;
+    renderUsers(allUsers);
+    counter.innerHTML=data.length
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Search bo‘yicha filtrlash
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.trim();
+  if (value === "") {
+    renderUsers(allUsers); // Bo‘sh bo‘lsa barcha userlar
+  } else {
+    const filtered = allUsers.filter(user =>
+      user.name.toLowerCase().includes(value.toLowerCase()) || 
+      user.carNumber.toLowerCase().includes(value.toLowerCase())
+    );
+    renderUsers(filtered);
+  }
+});
+
+getAllUsers();
