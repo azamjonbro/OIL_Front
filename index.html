@@ -1,127 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="author" content="azamjonbro, Azamjonbro">
- <meta name="description" content="this telegram bot is created oil factory and car work shop">
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
- <link rel="stylesheet" href="./style.css">
- <title>Oil Project</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="azamjonbro, Azamjonbro" />
+  <meta name="description" content="this telegram bot is created oil factory and car work shop" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <title>Oil Project</title>
 </head>
 
-<body>
- <header class="header">
-  <div class="container header__container">
-   <nav class="header__nav">
-    <div class="theme"></div>
-    <button aria-label="Yaratish" class="header-created-btn" title="yaratish" id="openModal">Yaratish</button>
-   </nav>
-  </div>
- </header>
- <main>
-  <section class="model-user ">
-   <div class="user-form container">
-    <div class="model-header">
-      <h2>Mijoz yaratish</h2>
-      <img src="./xicon.svg" alt="X icon" loading="lazy" style="cursor: pointer;" class="xicon">
+<body class="active-body">
+  <header class="header">
+    <div class="container header__container">
+      <nav class="header__nav">
+        <div class="theme" id="themeToggle"></div>
+        <button aria-label="Yaratish" class="header-created-btn" id="openModal">Yaratish</button>
+      </nav>
     </div>
-    <div class="model-form">
-     <input type="text" class="input" placeholder="Ismi" id="name" name="name" pattern="[A-Za-z\s]{3,20}"
-      title="Faqat harflar, kamida 3ta" required>
+  </header>
 
-      <!-- Telefon raqami (UZ format: +998901234567) -->
-      <input type="tel" class="input" placeholder="Telefon raqami" id="phone" name="phone" pattern="\+998\d{9}"
-       title="+998 bilan boshlanadigan 9 ta raqam" required>
-
-      <!-- Moshina raqami (UZ format: 01A123AA) -->
-      <input type="text" class="input" placeholder="Moshina raqami" id="car_number" name="car_number"
-       pattern="\d{2}[A-Z]{1}\d{3}[A-Z]{2}" title="Masalan: 01A123AA" required>
-
-      <!-- Moshina markasi (harflar, raqamlar bo'lishi mumkin) -->
-      <input type="text" class="input" placeholder="Moshina markasi" id="car_brand" name="car_brand"
-       pattern="[A-Za-z0-9\s\-]{2,30}" title="Masalan: Chevrolet Malibu" required>
-
-      <!-- Moy markasi (harflar, raqamlar) -->
-      <input type="text" class="input" placeholder="Moy markasi" id="oil_brand" name="oil_brand"
-       pattern="[A-Za-z0-9\s\-]{2,30}" title="Masalan: ZIC X7 10W-40" required>
-
-     <input type="text" id="oil_date" class="input" placeholder="Quyilgan vaqti">
-<input type="text" id="next_oil_date" class="input" placeholder="Yangilash vaqti">
-
-
-    </div>
-    <button class="header-created-btn">Yaratish</button>
-   </div>
-   </div>
-  </section>
-  <section class="users">
-   <div class="container user__container">
-    <div class="user-header">
-     <div class="left">
-      <h2>Users</h2>
-      <b id="counter">0</b>
-     </div>
-     <div class="right">
-      <input type="text" placeholder="search" class="SearchUser">
-     </div>
-    </div>
-    <div class="user-list">
-<div style="padding: 10px; display: flex; flex-direction: column; gap: 12px;">
-
-  <div style="background: #fff; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <div style="font-weight: 600; font-size: 16px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-        Azamat Abdullayev
+  <main>
+    <section class="model-user" id="modal">
+      <div class="user-form container">
+        <div class="model-header">
+          <h2>Mijoz yaratish</h2>
+          <img src="./xicon.svg" alt="X icon" class="xicon" id="closeModal">
+        </div>
+        <div class="model-form">
+          <input type="text" class="input" placeholder="Ismi" id="name" name="name" pattern="[A-Za-z\s]{3,20}" required>
+          <input type="tel" class="input" placeholder="Telefon raqami" id="phone" name="phone" pattern="\+998\d{9}" required>
+          <input type="text" class="input" placeholder="Moshina raqami" id="car_number" name="car_number" pattern="\d{2}[A-Z]{1}\d{3}[A-Z]{2}" required>
+          <input type="text" class="input" placeholder="Moshina markasi" id="car_brand" name="car_brand" pattern="[A-Za-z0-9\s\-]{2,30}" required>
+          <input type="text" class="input" placeholder="Moy markasi" id="oil_brand" name="oil_brand" pattern="[A-Za-z0-9\s\-]{2,30}" required>
+          <input type="text" id="oil_date" class="input" placeholder="Quyilgan vaqti">
+          <input type="text" id="next_oil_date" class="input" placeholder="Yangilash vaqti">
+        </div>
+        <button class="header-created-btn">Yaratish</button>
       </div>
-      <div style="font-size: 14px; color: #555;">+998901112233</div>
-    </div>
+    </section>
 
-    <div style="font-size: 14px; margin-top: 4px;">🚗 Lacetti / 50Y777AA</div>
-    <div style="font-size: 14px;">🛢 Liqui Moly 5W-30</div>
+    <section class="users">
+      <div class="container user__container">
+        <div class="user-header">
+          <div class="left">
+            <h2>Users</h2>
+            <b id="counter">0</b>
+          </div>
+          <div class="right">
+            <input type="text" placeholder="search" class="SearchUser" />
+          </div>
+        </div>
+        <div class="user-list">
+          <div class="user-card">
+            <div class="user-top">
+              <div class="user-name">Azamat Abdullayev</div>
+              <div class="user-phone">+998901112233</div>
+            </div>
+            <div class="user-car">🚗 Lacetti / 50Y777AA</div>
+            <div class="user-oil">🛢 Liqui Moly 5W-30</div>
+            <div class="user-dates">
+              <span>⛽ 05.06.2025</span>
+              <span>🔁 05.12.2025</span>
+            </div>
+          </div>
 
-    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777; margin-top: 6px;">
-      <span>⛽ 05.06.2025</span>
-      <span>🔁 05.12.2025</span>
-    </div>
-  </div>
-
-  <!-- Yana bitta misol -->
-  <div style="background: #fff; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <div style="font-weight: 600; font-size: 16px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-        Diyorbek Ibragimov
+          <div class="user-card">
+            <div class="user-top">
+              <div class="user-name">Diyorbek Ibragimov</div>
+              <div class="user-phone">+998993334455</div>
+            </div>
+            <div class="user-car">🚗 Spark / 01A123BC</div>
+            <div class="user-oil">🛢 ZIC X9 10W-40</div>
+            <div class="user-dates">
+              <span>⛽ 10.05.2025</span>
+              <span>🔁 10.11.2025</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div style="font-size: 14px; color: #555;">+998993334455</div>
-    </div>
+    </section>
+  </main>
 
-    <div style="font-size: 14px; margin-top: 4px;">🚗 Spark / 01A123BC</div>
-    <div style="font-size: 14px;">🛢 ZIC X9 10W-40</div>
-
-    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777; margin-top: 6px;">
-      <span>⛽ 10.05.2025</span>
-      <span>🔁 10.11.2025</span>
-    </div>
-  </div>
-
-</div>
-    </div>
-   </div>
-  </section>
- </main>
- <script>
-  flatpickr("#oil_date", {
-    dateFormat: "Y-m-d"
-  });
-  flatpickr("#next_oil_date", {
-    dateFormat: "Y-m-d"
-  });
-
- </script>
- <script src="./main.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="./main.js"></script>
+  <script>
+    flatpickr("#oil_date", { dateFormat: "Y-m-d" });
+    flatpickr("#next_oil_date", { dateFormat: "Y-m-d" });
+  </script>
 </body>
-
 </html>
