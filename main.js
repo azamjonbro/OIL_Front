@@ -59,8 +59,8 @@ function createUserCard(user) {
       <div class="user-car">🚗 ${user.carNumber}</div>
       <div class="user-oil">🛢 ${user.oilBrand}</div>
       <div class="user-dates">
-        <span>⛽ ${formatDate(user.createdAt)}</span>
-        <span>🔁 ${formatDate(user.filledAt)}</span>
+        <span>⛽ ${formatDate(user.filledAt)}</span>
+        <span>🔁 ${formatDate(user.nextChangeAt)}</span>
       </div>
     </div>
   `;
@@ -107,3 +107,58 @@ searchInput.addEventListener("input", () => {
 });
 
 getAllUsers();
+
+
+
+
+
+const createBtn = document.querySelector("#clientCreatebtn");
+
+  createBtn.addEventListener("click", async () => {
+    const name = document.querySelector("#name").value.trim();
+    const phone = document.querySelector("#phone").value.trim();
+    const carNumber = document.querySelector("#car_number").value.trim();
+    const carBrand = document.querySelector("#car_brand").value.trim();
+    const oilBrand = document.querySelector("#oil_brand").value.trim();
+    const filledAt = document.querySelector("#oil_date").value.trim();
+    const nextChangeAt = document.querySelector("#next_oil_date").value.trim();
+
+    // 🔐 Agar inputlardan biri bo‘sh bo‘lsa, ogohlantirish chiqarsin
+    if (!name || !phone || !carNumber || !carBrand || !oilBrand || !filledAt || !nextChangeAt) {
+      alert("Iltimos, barcha maydonlarni to‘ldiring!");
+      return;
+    }
+
+    const client = {
+      name,
+      phone,
+      carNumber,
+      carBrand,
+      oilBrand,
+      filledAt: new Date(filledAt),
+      nextChangeAt: new Date(nextChangeAt),
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/clients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(client)
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Mijoz muvaffaqiyatli qo‘shildi ✅");
+        // Optional: formani tozalash yoki modalni yopish
+        document.getElementById("modal").classList.remove("active");
+      } else {
+        alert("Xatolik: " + data.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Serverga ulanib bo‘lmadi ❌");
+    }
+  });
