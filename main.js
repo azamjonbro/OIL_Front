@@ -82,9 +82,9 @@ function renderUsers(users) {
 let counter = document.querySelector('#counter')
 async function getAllUsers() {
   try {
-    const res = await fetch('http://localhost:5000/clients');
+    const res = await fetch('http://37.252.20.41:5000/clients');
     const data = await res.json();
-    allUsers = data;
+    allUsers = data.reverse();
     renderUsers(allUsers);
     counter.innerHTML=data.length
   } catch (error) {
@@ -140,7 +140,7 @@ const createBtn = document.querySelector("#clientCreatebtn");
     };
 
     try {
-      const res = await fetch("http://localhost:5000/clients", {
+      const res = await fetch("http://37.252.20.41:5000/clients", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -152,8 +152,8 @@ const createBtn = document.querySelector("#clientCreatebtn");
 
       if (res.ok) {
         alert("Mijoz muvaffaqiyatli qo‘shildi ✅");
-        // Optional: formani tozalash yoki modalni yopish
         document.getElementById("modal").classList.remove("active");
+        getAllUsers()
       } else {
         alert("Xatolik: " + data.error);
       }
