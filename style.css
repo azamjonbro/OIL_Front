@@ -31,7 +31,10 @@ body {
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
 }
-
+input,button{
+  outline: none;
+  border: none;
+}
 .container {
   max-width: 580px;
   margin: 0 auto;
