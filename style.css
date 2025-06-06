@@ -178,6 +178,7 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: var(--input-text);
 }
 .user-phone {
   font-size: 14px;
