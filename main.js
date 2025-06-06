@@ -122,9 +122,10 @@ const createBtn = document.querySelector("#clientCreatebtn");
     const oilBrand = document.querySelector("#oil_brand").value.trim();
     const filledAt = document.querySelector("#oil_date").value.trim();
     const nextChangeAt = document.querySelector("#next_oil_date").value.trim();
+    const klameter = document.querySelector("#klameter").value.trim()
 
     // 🔐 Agar inputlardan biri bo‘sh bo‘lsa, ogohlantirish chiqarsin
-    if (!name || !phone || !carNumber || !carBrand || !oilBrand || !filledAt || !nextChangeAt) {
+    if (!name || !phone || !carNumber || !carBrand || !oilBrand || !filledAt || !nextChangeAt||!klameter) {
       alert("Iltimos, barcha maydonlarni to‘ldiring!");
       return;
     }
@@ -137,6 +138,7 @@ const createBtn = document.querySelector("#clientCreatebtn");
       oilBrand,
       filledAt: new Date(filledAt),
       nextChangeAt: new Date(nextChangeAt),
+      klameter
     };
 
     try {
