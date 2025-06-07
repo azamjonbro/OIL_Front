@@ -62,6 +62,11 @@ function createUserCard(user) {
         <span>⛽ ${formatDate(user.filledAt)}</span>
         <span>🔁 ${formatDate(user.nextChangeAt)}</span>
       </div>
+
+      <div>
+        <button class="header-created-btn">O'zgartirish</button>
+        <button>O'chirish</button>
+      </div>
     </div>
   `;
 }
