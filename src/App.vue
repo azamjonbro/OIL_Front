@@ -1,0 +1,146 @@
+<template>
+  <div :class="['app', { 'active-body': isDark }]">
+    <header class="header">
+      <div class="container header__container">
+        <nav class="header__nav">
+          <div class="theme" :class="{ 'active-toggle': isDark }" @click="toggleTheme"></div>
+          <button class="header-created-btn" @click="openModal">Yaratish</button>
+        </nav>
+      </div>
+    </header>
+
+    <ModalForm
+      v-if="modalVisible"
+      @close="modalVisible = false"
+      @create="createClient($event)"
+    />
+
+    <main>
+      <section class="users">
+        <div class="container user__container">
+          <div class="user-header">
+            <div class="left">
+              <h2>Users</h2>
+              <b>{{ users.length }}</b>
+            </div>
+            <div class="right">
+              <input type="text" v-model="searchQuery" placeholder="search" class="SearchUser" />
+            </div>
+          </div>
+          <div class="user-list">
+            <UserCard
+              v-for="user in filteredUsers"
+              :key="user._id"
+              :user="user"
+              @delete="deleteUser"
+              @click="showUser(user)"
+            />
+            <p v-if="!filteredUsers.length" style="display: flex; justify-content: center;">Mahsulot mavjud emas</p>
+          </div>
+        </div>
+      </section>
+
+      
+<UserModal
+  v-if="selectedUser"
+  :user="selectedUser"
+  @close="selectedUser = null"
+/>
+    </main>
+  </div>
+</template>
+
+<script>
+import ModalForm from './components/ModalForm.vue';
+import UserCard from './components/UserCard.vue';
+import UserModal from './components/UserModal.vue';
+
+export default {
+  components: { ModalForm, UserCard, UserModal },
+  data() {
+    return {
+      // API: 'https://safonon.uz/clients',
+      API:"http://localhost:5000/clients",
+      users: [],
+      modalVisible: false,
+      selectedUser: null,
+      searchQuery: '',
+      isDark: true
+    };
+  },
+  computed: {
+    filteredUsers() {
+      return this.users.filter(user =>
+        user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        user.carNumber.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
+  },
+  methods: {
+     showUser(user) {
+    this.selectedUser = user;
+  },
+    toggleTheme() {
+      this.isDark = !this.isDark;
+    },
+    openModal() {
+      this.modalVisible = true;
+    },
+    async fetchUsers() {
+      try {
+        const res = await fetch(this.API);
+        const data = await res.json();
+        this.users = data.reverse();
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    async createClient(client) {
+      console.log(client);
+      
+      try {
+        const res = await fetch(this.API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(client)
+        });
+        if (res.ok) {
+          alert('Mijoz muvaffaqiyatli qo‘shildi ✅');
+          this.modalVisible = false;
+          this.fetchUsers();
+        } else {
+          const err = await res.json();
+          alert('Xatolik: ' + err.error);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Serverga ulanib bo‘lmadi ❌');
+      }
+    },
+    async deleteUser(id) {
+      const confirmed = confirm("Rostdan ham o'chirmoqchimisiz?");
+      if (!confirmed) return;
+      try {
+        const res = await fetch(`${this.API}/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          alert('O‘chirildi ✅');
+          this.fetchUsers();
+        } else {
+          const err = await res.json();
+          alert('Xatolik: ' + err.message);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('O‘chirishda xatolik yuz berdi ❌');
+      }
+    }
+  },
+  mounted() {
+    this.fetchUsers();
+  }
+};
+</script>
+
+<style >
+/* Import your styles here or use Tailwind classes */
+</style>
