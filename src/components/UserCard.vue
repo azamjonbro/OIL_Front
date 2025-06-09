@@ -3,42 +3,30 @@
     class="user-card grid gap-2 rounded-2xl p-4 shadow hover:shadow-lg transition duration-200 cursor-pointer bg-white dark:bg-gray-800"
     @click="handleSelect"
   >
-    <!-- Top row: name & phone -->
     <div class="flex justify-between items-center">
       <h3 class="font-semibold text-lg truncate">{{ user.name }}</h3>
       <span class="text-sm text-gray-500 dark:text-gray-400">{{ user.phone }}</span>
     </div>
 
-    <!-- Car number -->
     <div class="flex items-center gap-2 text-sm">
       <span>🚗</span>
       <span class="font-medium">{{ user.carNumber }}</span>
     </div>
 
-    <!-- Oil brand -->
     <div class="flex items-center gap-2 text-sm">
       <span>🛢</span>
-      <span>{{ user.oilBrand }}</span>
+      <span>{{ user.history[user.history.length-1].oilBrand }}</span>
     </div>
-
-    <!-- Dates -->
     <div style="display: flex; justify-content: space-between;">
-      <span>⛽ {{ formatDate(user.filledAt) }}</span>
-      <span>🔁 {{ formatDate(user.nextChangeAt) }}</span>
+      <span>⛽ {{ formatDate(user.history[user.history.length-1].filledAt)  }}</span>
+      <span>🔁 {{ formatDate(user.history[user.history.length-1].nextChangeAt) }}</span>
     </div>
 
-    <!-- Actions -->
     <div class="buttonbox">
-      <button
-        class="header-created-btn"
-        @click.stop="onEdit"
-      >
+      <button class="header-created-btn" @click.stop="onEdit">
         O'zgartirish
       </button>
-      <button
-        class="delete-btn"
-        @click.stop="onDelete"
-      >
+      <button class="delete-btn" @click.stop="onDelete">
         O'chirish
       </button>
     </div>
@@ -59,18 +47,18 @@ export default {
       this.$emit('select', this.user);
     },
     onEdit() {
-      this.$emit('edit', this.user);
+      this.$emit('edit', this.user); 
     },
     onDelete() {
       this.$emit('delete', this.user._id);
     },
-    formatDate(date) {
-      const d = new Date(date);
-      if (Number.isNaN(d)) return '-';
-      return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1)
-        .toString()
-        .padStart(2, '0')}.${d.getFullYear()}`;
-    }
+   formatDate(date) {
+    console.log(date)
+  if (!date || typeof date !== 'string') return '-';
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return '-';
+  return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')}.${d.getFullYear()}`;
+}
   }
 };
 </script>

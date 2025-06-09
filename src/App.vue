@@ -3,7 +3,11 @@
     <header class="header">
       <div class="container header__container">
         <nav class="header__nav">
-          <div class="theme" :class="{ 'active-toggle': isDark }" @click="toggleTheme"></div>
+          <div
+            class="theme"
+            :class="{ 'active-toggle': isDark }"
+            @click="toggleTheme"
+          ></div>
           <button class="header-created-btn" @click="openModal">Yaratish</button>
         </nav>
       </div>
@@ -24,7 +28,12 @@
               <b>{{ users.length }}</b>
             </div>
             <div class="right">
-              <input type="text" v-model="searchQuery" placeholder="search" class="SearchUser" />
+              <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="search"
+                class="SearchUser"
+              />
             </div>
           </div>
           <div class="user-list">
@@ -33,53 +42,74 @@
               :key="user._id"
               :user="user"
               @delete="deleteUser"
-              @click="showUser(user)"
+              @edit="openEditModal"
+              @select="showUser"
             />
-            <p v-if="!filteredUsers.length" style="display: flex; justify-content: center;">Foydalanuvchi mavjud emas</p>
+            
+            <p
+              v-if="!filteredUsers.length"
+              style="display: flex; justify-content: center"
+            >
+              Foydalanuvchi mavjud emas
+            </p>
           </div>
         </div>
       </section>
-
-      
-<UserModal
-  v-if="selectedUser"
+<EditClientModal
+  v-if="selectedUser && activeModal === 'edit'"
   :user="selectedUser"
-  @close="selectedUser = null"
+  :isOpen="true"
+  @close="selectedUser = null; activeModal = null"
+  @update="saveHistory"
+/>
+
+<UserModal
+  v-if="selectedUser && activeModal === 'view'"
+  :user="selectedUser"
+  @close="selectedUser = null; activeModal = null"
 />
     </main>
   </div>
 </template>
 
 <script>
-import ModalForm from './components/ModalForm.vue';
-import UserCard from './components/UserCard.vue';
-import UserModal from './components/UserModal.vue';
+import ModalForm from "./components/ModalForm.vue";
+import UserCard from "./components/UserCard.vue";
+import UserModal from "./components/UserModal.vue";
+import EditClientModal from "./components/EditClientModal.vue";
 
 export default {
-  components: { ModalForm, UserCard, UserModal },
+  components: { ModalForm, UserCard, UserModal, EditClientModal },
   data() {
     return {
       // API: 'https://safonon.uz/clients',
-      API:"http://localhost:5000/clients",
+      API: "http://localhost:5000/clients",
       users: [],
       modalVisible: false,
       selectedUser: null,
-      searchQuery: '',
-      isDark: true
+      searchQuery: "",
+      isDark: true,
+      activeModal: null,
     };
   },
   computed: {
     filteredUsers() {
-      return this.users.filter(user =>
-        user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        user.carNumber.toLowerCase().includes(this.searchQuery.toLowerCase())
+      return this.users.filter(
+        (user) =>
+          user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          user.carNumber.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
-    }
+    },
   },
   methods: {
-     showUser(user) {
-    this.selectedUser = user;
-  },
+    showUser(user) {
+  this.selectedUser = user;
+  this.activeModal = 'view';
+},
+openEditModal(user) {
+  this.selectedUser = user;
+  this.activeModal = 'edit';
+},
     toggleTheme() {
       this.isDark = !this.isDark;
     },
@@ -97,50 +127,50 @@ export default {
     },
     async createClient(client) {
       console.log(client);
-      
+
       try {
         const res = await fetch(this.API, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(client)
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(client),
         });
         if (res.ok) {
-          alert('Mijoz muvaffaqiyatli qo‘shildi ✅');
+          alert("Mijoz muvaffaqiyatli qo‘shildi ✅");
           this.modalVisible = false;
           this.fetchUsers();
         } else {
           const err = await res.json();
-          alert('Xatolik: ' + err.error);
+          alert("Xatolik: " + err.error);
         }
       } catch (err) {
         console.error(err);
-        alert('Serverga ulanib bo‘lmadi ❌');
+        alert("Serverga ulanib bo‘lmadi ❌");
       }
     },
     async deleteUser(id) {
       const confirmed = confirm("Rostdan ham o'chirmoqchimisiz?");
       if (!confirmed) return;
       try {
-        const res = await fetch(`${this.API}/${id}`, { method: 'DELETE' });
+        const res = await fetch(`${this.API}/${id}`, { method: "DELETE" });
         if (res.ok) {
-          alert('O‘chirildi ✅');
+          alert("O‘chirildi ✅");
           this.fetchUsers();
         } else {
           const err = await res.json();
-          alert('Xatolik: ' + err.message);
+          alert("Xatolik: " + err.message);
         }
       } catch (err) {
         console.error(err);
-        alert('O‘chirishda xatolik yuz berdi ❌');
+        alert("O‘chirishda xatolik yuz berdi ❌");
       }
-    }
+    },
   },
   mounted() {
     this.fetchUsers();
-  }
+  },
 };
 </script>
 
-<style >
+<style>
 /* Import your styles here or use Tailwind classes */
 </style>

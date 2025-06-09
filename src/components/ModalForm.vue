@@ -1,33 +1,48 @@
 <template>
   <div class="modal">
-    <div class="user-form container ">
+    <div class="user-form container">
       <div class="model-header">
-      <h2>Yangi mijoz</h2>
-       
-       <div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 24px; color:rgb(187, 40, 40); cursor:pointer" @click="close" >X</div>
-      
+        <h2>Yangi mijoz</h2>
+        <div
+          style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 24px; color:rgb(187, 40, 40); cursor:pointer"
+          @click="close"
+        >
+          X
+        </div>
       </div>
+
       <form class="model-form" @submit.prevent="handleSubmit">
-       <div style="display: flex; gap:10px;">
-         <input style="width:50%" class="input" v-model="form.name" placeholder="Ism" required />
-         <input style="width:50%" class="input" v-model="form.phone" placeholder="Telefon" required />
-        </div>
         <div style="display: flex; gap:10px;">
-         <input style="width: 50%;" class="input" v-model="form.carNumber" placeholder="Mashina raqami" required />
-         <input style="width: 50%;" class="input" v-model="form.carBrand" placeholder="Avtomobil markasi" required />
-        </div>
-        <div style="display: flex; gap:10px;">
-         <input style="width: 50%;" class="input" v-model="form.oilBrand" placeholder="Yog' markasi" required />
-         <input style="width: 50%;" class="input" v-model="form.klameter" placeholder="Kilometr" required />
+          <input style="width:50%" class="input" v-model="form.name" placeholder="Ism" required />
+          <input style="width:50%" class="input" v-model="form.phone" placeholder="Telefon" required />
         </div>
 
         <div style="display: flex; gap:10px;">
-         <input style="width:50%;" class="input" placeholder="" v-model="form.filledAt" type="date" required />
-         <input style="width:50%;" class="input" v-model="form.nextChangeAt" type="date" required />
+          <input style="width: 50%;" class="input" v-model="form.carNumber" placeholder="Mashina raqami" required />
+          <input style="width: 50%;" class="input" v-model="form.carBrand" placeholder="Avtomobil markasi" required />
         </div>
-        <div style="display:flex">
-         <input style="width: 100%;" type="number" placeholder="Summa" class="input"  >
+
+        <div style="display: flex; gap:10px;">
+          <input style="width: 50%;" class="input" v-model="form.oilBrand" placeholder="Yog' markasi" required />
+          <input style="width: 50%;" class="input" v-model="form.klameter" placeholder="Kilometr" required />
         </div>
+
+        <div style="display: flex; gap:10px;">
+          <input style="width:50%;" class="input" v-model="form.filledAt" type="date" required />
+          <input style="width:50%;" class="input" v-model="form.nextChangeAt" type="date" required />
+        </div>
+
+        <div style="display: flex; gap:10px;">
+          <input style="width:50%;" class="input" type="number" v-model="form.price" placeholder="Summa" required />
+          <input style="width:50%;" class="input" type="date" v-model="form.notificationDate" placeholder="Habarnoma sanasi" />
+        </div>
+
+        <div style="display: flex; gap:10px;">
+          <input style="width:33%;" class="input" v-model="form.oilFilter" placeholder="Moy filtr" />
+          <input style="width:33%;" class="input" v-model="form.airFilter" placeholder="Vozdux filtr" />
+          <input style="width:33%;" class="input" v-model="form.cabinFilter" placeholder="Salon filtr" />
+        </div>
+
         <button class="header-created-btn" type="submit">Saqlash</button>
       </form>
     </div>
@@ -35,6 +50,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'YangiMijoz',
   props: {
@@ -51,7 +67,12 @@ export default {
         oilBrand: '',
         filledAt: '',
         nextChangeAt: '',
-        klameter: ''
+        klameter: '',
+        price: '',
+        notificationDate: '',
+        oilFilter: '0',
+        airFilter: '0',
+        cabinFilter: '0'
       }
     };
   },
@@ -106,15 +127,14 @@ export default {
         alert(error);
         return;
       }
-      console.log(this.form);
-      
-   this.$emit('create', {
-  ...this.form,
-  carNumber: this.form.carNumber.toUpperCase(),
-  filledAt: new Date(this.form.filledAt),
-  nextChangeAt: new Date(this.form.nextChangeAt)
-});
 
+      this.$emit('create', {
+        ...this.form,
+        carNumber: this.form.carNumber.toUpperCase(),
+        filledAt: new Date(this.form.filledAt),
+        nextChangeAt: new Date(this.form.nextChangeAt),
+        notificationDate: this.form.notificationDate ? new Date(this.form.notificationDate) : null
+      });
 
       this.close();
     }
