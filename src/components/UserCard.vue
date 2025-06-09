@@ -53,7 +53,6 @@ export default {
       this.$emit('delete', this.user._id);
     },
    formatDate(date) {
-    console.log(date)
   if (!date || typeof date !== 'string') return '-';
   const d = new Date(date);
   if (isNaN(d.getTime())) return '-';

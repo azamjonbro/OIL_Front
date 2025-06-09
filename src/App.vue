@@ -126,7 +126,6 @@ openEditModal(user) {
       }
     },
     async createClient(client) {
-      console.log(client);
 
       try {
         const res = await fetch(this.API, {
