@@ -35,7 +35,7 @@
               @delete="deleteUser"
               @click="showUser(user)"
             />
-            <p v-if="!filteredUsers.length" style="display: flex; justify-content: center;">Mahsulot mavjud emas</p>
+            <p v-if="!filteredUsers.length" style="display: flex; justify-content: center;">Foydalanuvchi mavjud emas</p>
           </div>
         </div>
       </section>

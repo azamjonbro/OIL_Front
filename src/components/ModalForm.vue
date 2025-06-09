@@ -8,14 +8,26 @@
       
       </div>
       <form class="model-form" @submit.prevent="handleSubmit">
-        <input class="input" v-model="form.name" placeholder="Ism" required />
-        <input class="input" v-model="form.phone" placeholder="Telefon" required />
-        <input class="input" v-model="form.carNumber" placeholder="Avto raqami" required />
-        <input class="input" v-model="form.carBrand" placeholder="Avto markasi" required />
-        <input class="input" v-model="form.oilBrand" placeholder="Yog' markasi" required />
-        <input class="input" v-model="form.klameter" placeholder="Kilometr" required />
-        <input class="input" v-model="form.filledAt" type="date" required />
-        <input class="input" v-model="form.nextChangeAt" type="date" required />
+       <div style="display: flex; gap:10px;">
+         <input style="width:50%" class="input" v-model="form.name" placeholder="Ism" required />
+         <input style="width:50%" class="input" v-model="form.phone" placeholder="Telefon" required />
+        </div>
+        <div style="display: flex; gap:10px;">
+         <input style="width: 50%;" class="input" v-model="form.carNumber" placeholder="Mashina raqami" required />
+         <input style="width: 50%;" class="input" v-model="form.carBrand" placeholder="Avtomobil markasi" required />
+        </div>
+        <div style="display: flex; gap:10px;">
+         <input style="width: 50%;" class="input" v-model="form.oilBrand" placeholder="Yog' markasi" required />
+         <input style="width: 50%;" class="input" v-model="form.klameter" placeholder="Kilometr" required />
+        </div>
+
+        <div style="display: flex; gap:10px;">
+         <input style="width:50%;" class="input" placeholder="" v-model="form.filledAt" type="date" required />
+         <input style="width:50%;" class="input" v-model="form.nextChangeAt" type="date" required />
+        </div>
+        <div style="display:flex">
+         <input style="width: 100%;" type="number" placeholder="Summa" class="input"  >
+        </div>
         <button class="header-created-btn" type="submit">Saqlash</button>
       </form>
     </div>
@@ -33,7 +45,7 @@ export default {
     return {
       form: {
         name: '',
-        phone: '',
+        phone: '+998',
         carNumber: '',
         carBrand: '',
         oilBrand: '',

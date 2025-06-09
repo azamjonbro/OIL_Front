@@ -43,6 +43,16 @@ input,button{
   outline: none;
   border: none;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox uchun */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 .container {
   max-width: 580px;
   margin: 0 auto;
@@ -227,6 +237,10 @@ input,button{
   width: 80%;
   padding: 12px;
   border-radius: 8px;
+}
+.buttonbox{
+  display: flex;
+  gap: 10px;
 }
 
 .delete-btn{
