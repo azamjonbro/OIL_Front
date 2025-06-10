@@ -48,7 +48,12 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
+.flex{
+  display: flex;
+}
+.gap-2{
+  gap: 10px;
+}
 /* Firefox uchun */
 input[type=number] {
   -moz-appearance: textfield;

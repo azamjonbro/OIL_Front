@@ -7,19 +7,24 @@
       </div>
 
       <form class="model-form" @submit.prevent="handleUpdate">
-        <div class="flex gap-2">
-          <input class="input" v-model="form.filledAt" type="date" required />
-          <input class="input" v-model="form.nextChangeAt" type="date" required />
+        <div style="display:flex; gap:10px;">
+          <input style="width:50%;" class="input" v-model="form.filledAt" type="date" required />
+          <input style="width:50%;" class="input" v-model="form.nextChangeAt" type="date" required />
         </div>
         <div class="flex gap-2">
-          <input class="input" v-model.number="form.price" placeholder="Summa" required />
-          <input class="input" v-model="form.notificationDate" type="date" required />
+          <input style="width:50%;" class="input" v-model.number="form.price" placeholder="Summa" required />
+          <input style="width:50%;" class="input" v-model="form.notificationDate" type="date" required />
         </div>
         <div class="flex gap-2">
-          <input class="input" v-model="form.oilFilter" placeholder="Moy filtri" required />
-          <input class="input" v-model="form.airFilter" placeholder="Vozdux filtri" required />
-          <input class="input" v-model="form.salonFilter" placeholder="Salon filtri" required />
+  <input style="width:50%;" class="input" v-model="form.klameter" placeholder="Klametr" required />
+  <input style="width:50%;" class="input" v-model="form.oilBrand" placeholder="Moy brendi" required />
+</div>
+        <div class="flex gap-2" style="gap: 10px;">
+          <input style="width:33%;" class="input" v-model="form.oilFilter" placeholder="Moy filtri" required />
+          <input style="width:33%;" class="input" v-model="form.airFilter" placeholder="Vozdux filtri" required />
+          <input style="width:33%;" class="input" v-model="form.salonFilter" placeholder="Salon filtri" required />
         </div>
+
 
         <button class="header-created-btn" type="submit">Saqlash</button>
       </form>
@@ -54,7 +59,9 @@ export default {
         notificationDate: '',
         oilFilter: '',
         airFilter: '',
-        salonFilter: ''
+        salonFilter: '',
+        klameter:'',
+        oilBrand:"",
       }
     };
   },
@@ -76,7 +83,7 @@ export default {
         notificationDate: new Date(this.form.notificationDate),
         oilFilter: this.form.oilFilter,
         airFilter: this.form.airFilter,
-        salonFilter: this.form.salonFilter
+        cabinFilter: this.form.salonFilter
       };
 
       this.$emit('update', historyItem);
@@ -85,7 +92,9 @@ export default {
   }
 };
 </script>
-
+// oilFilter,
+//       airFilter,
+//       cabinFilter
 <style scoped>
 .modal {
   position: fixed;

@@ -3,21 +3,13 @@
     <header class="header">
       <div class="container header__container">
         <nav class="header__nav">
-          <div
-            class="theme"
-            :class="{ 'active-toggle': isDark }"
-            @click="toggleTheme"
-          ></div>
+          <div class="theme" :class="{ 'active-toggle': isDark }" @click="toggleTheme"></div>
           <button class="header-created-btn" @click="openModal">Yaratish</button>
         </nav>
       </div>
     </header>
 
-    <ModalForm
-      v-if="modalVisible"
-      @close="modalVisible = false"
-      @create="createClient($event)"
-    />
+    <ModalForm v-if="modalVisible" @close="modalVisible = false" @create="createClient($event)" />
 
     <main>
       <section class="users">
@@ -28,46 +20,24 @@
               <b>{{ users.length }}</b>
             </div>
             <div class="right">
-              <input
-                type="text"
-                v-model="searchQuery"
-                placeholder="search"
-                class="SearchUser"
-              />
+              <input type="text" v-model="searchQuery" placeholder="search" class="SearchUser" />
             </div>
           </div>
           <div class="user-list">
-            <UserCard
-              v-for="user in filteredUsers"
-              :key="user._id"
-              :user="user"
-              @delete="deleteUser"
-              @edit="openEditModal"
-              @select="showUser"
-            />
-            
-            <p
-              v-if="!filteredUsers.length"
-              style="display: flex; justify-content: center"
-            >
+            <UserCard v-for="user in filteredUsers" :key="user._id" :user="user" @delete="deleteUser"
+              @edit="openEditModal" @select="showUser" />
+
+            <p v-if="!filteredUsers.length" style="display: flex; justify-content: center">
               Foydalanuvchi mavjud emas
             </p>
           </div>
         </div>
       </section>
-<EditClientModal
-  v-if="selectedUser && activeModal === 'edit'"
-  :user="selectedUser"
-  :isOpen="true"
-  @close="selectedUser = null; activeModal = null"
-  @update="saveHistory"
-/>
+      <EditClientModal v-if="selectedUser && activeModal === 'edit'" :user="selectedUser" :isOpen="true"
+        @close="selectedUser = null; activeModal = null" @update="saveHistory" />
 
-<UserModal
-  v-if="selectedUser && activeModal === 'view'"
-  :user="selectedUser"
-  @close="selectedUser = null; activeModal = null"
-/>
+      <UserModal v-if="selectedUser && activeModal === 'view'" :user="selectedUser"
+        @close="selectedUser = null; activeModal = null" />
     </main>
   </div>
 </template>
@@ -103,13 +73,35 @@ export default {
   },
   methods: {
     showUser(user) {
-  this.selectedUser = user;
-  this.activeModal = 'view';
-},
-openEditModal(user) {
-  this.selectedUser = user;
-  this.activeModal = 'edit';
-},
+      this.selectedUser = user;
+      this.activeModal = 'view';
+    },
+    openEditModal(user) {
+      this.selectedUser = user;
+      this.activeModal = 'edit';
+    },
+    async saveHistory(item) {
+      try {
+        const response = await fetch(this.API+`/${this.selectedUser._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item)
+        });
+
+        if (!response.ok) {
+          throw new Error('Serverga yozishda xatolik yuz berdi');
+        }
+
+        const updatedClient = await response.json();
+        this.user.history = updatedClient.history;
+
+        console.log('Tarix muvaffaqiyatli saqlandi');
+      } catch (err) {
+        console.error('Xatolik:', err.message);
+      }
+    },
     toggleTheme() {
       this.isDark = !this.isDark;
     },
@@ -141,6 +133,7 @@ openEditModal(user) {
           const err = await res.json();
           alert("Xatolik: " + err.error);
         }
+        this.fetchUsers()
       } catch (err) {
         console.error(err);
         alert("Serverga ulanib bo‘lmadi ❌");
