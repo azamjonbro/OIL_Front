@@ -83,7 +83,9 @@ export default {
         notificationDate: new Date(this.form.notificationDate),
         oilFilter: this.form.oilFilter,
         airFilter: this.form.airFilter,
-        cabinFilter: this.form.salonFilter
+        cabinFilter: this.form.salonFilter,
+        klameter:this.form.klameter,
+        oilBrand:this.form.oilBrand
       };
 
       this.$emit('update', historyItem);

@@ -256,3 +256,21 @@ input[type=number] {
   color: #fff;
 }
 
+.text-sm{
+  display: flex;
+  gap: 40px;
+}
+.text-sm>.box{
+  display: flex;
+  gap: 10px;
+}
+.card-title{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.user-card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

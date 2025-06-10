@@ -1,25 +1,30 @@
 <template>
   <div
     class="user-card grid gap-2 rounded-2xl p-4 shadow hover:shadow-lg transition duration-200 cursor-pointer bg-white dark:bg-gray-800"
-    @click="handleSelect"
-  >
-    <div class="flex justify-between items-center">
+    @click="handleSelect">
+    <div class="card-title flex justify-between items-center">
       <h3 class="font-semibold text-lg truncate">{{ user.name }}</h3>
       <span class="text-sm text-gray-500 dark:text-gray-400">{{ user.phone }}</span>
     </div>
 
     <div class="flex items-center gap-2 text-sm">
-      <span>🚗</span>
-      <span class="font-medium">{{ user.carNumber }}</span>
+      <div class="box">
+        <span>🚗</span>
+        <span class="font-medium">{{ user.carNumber }}</span>
+      </div>
+      <div class="box">
+        <span>🛢</span>
+        <span>{{ user.history[user.history.length - 1].oilBrand }}</span>
+      </div>
     </div>
 
-    <div class="flex items-center gap-2 text-sm">
-      <span>🛢</span>
-      <span>{{ user.history[user.history.length-1].oilBrand }}</span>
+    <div class="flex items-center gap-2">
+
     </div>
     <div style="display: flex; justify-content: space-between;">
-      <span>⛽ {{ formatDate(user.history[user.history.length-1].filledAt)  }}</span>
-      <span>🔁 {{ formatDate(user.history[user.history.length-1].nextChangeAt) }}</span>
+      <span>⛽ {{ formatDate(user.history[user.history.length - 1].filledAt) }}</span>
+      <span>🔔 {{ formatDate(user.history[user.history.length - 1].notificationDate) }}</span>
+      <span>🔁 {{ formatDate(user.history[user.history.length - 1].nextChangeAt) }}</span>
     </div>
 
     <div class="buttonbox">
@@ -47,17 +52,17 @@ export default {
       this.$emit('select', this.user);
     },
     onEdit() {
-      this.$emit('edit', this.user); 
+      this.$emit('edit', this.user);
     },
     onDelete() {
       this.$emit('delete', this.user._id);
     },
-   formatDate(date) {
-  if (!date || typeof date !== 'string') return '-';
-  const d = new Date(date);
-  if (isNaN(d.getTime())) return '-';
-  return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')}.${d.getFullYear()}`;
-}
+    formatDate(date) {
+      if (!date || typeof date !== 'string') return '-';
+      const d = new Date(date);
+      if (isNaN(d.getTime())) return '-';
+      return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')}.${d.getFullYear()}`;
+    }
   }
 };
 </script>
