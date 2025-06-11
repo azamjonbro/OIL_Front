@@ -38,9 +38,19 @@
         </div>
 
         <div style="display: flex; gap:10px;">
-          <input style="width:33%;" class="input" v-model="form.oilFilter" placeholder="Moy filtr" />
-          <input style="width:33%;" class="input" v-model="form.airFilter" placeholder="Vozdux filtr" />
-          <input style="width:33%;" class="input" v-model="form.cabinFilter" placeholder="Salon filtr" />
+          <div class="labelbox" style="width:33%;">
+          <label for="moy">Moy filter</label>
+          <input style="width:100%;" class="input" v-model="form.oilFilter" id="moy" placeholder="Moy filtr" />
+          
+          </div>
+          <div class="labelbox" style="width:33%;">
+          <label for="">Vozdux filter</label>
+          <input style="width:100%;" id="vozdux" class="input" v-model="form.airFilter" placeholder="Vozdux filtr" />
+          </div>
+          <div class="labelbox" style="width:33%;">
+          <label for="salon">Salon filter</label>
+          <input id="salon" style="width:100%;" class="input" v-model="form.cabinFilter" placeholder="Salon filtr" />
+          </div>
         </div>
 
         <button class="header-created-btn" type="submit">Saqlash</button>

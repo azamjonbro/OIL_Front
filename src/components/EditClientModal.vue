@@ -57,9 +57,9 @@ export default {
         nextChangeAt: '',
         price: null,
         notificationDate: '',
-        oilFilter: '',
-        airFilter: '',
-        salonFilter: '',
+        oilFilter: '0',
+        airFilter: '0',
+        salonFilter: '0',
         klameter:'',
         oilBrand:"",
       }

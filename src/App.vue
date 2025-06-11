@@ -93,7 +93,8 @@ export default {
         if (!response.ok) {
           throw new Error('Serverga yozishda xatolik yuz berdi');
         }
-
+        alert("muvaffaqqiyatli qo'shildi")
+        this.fetchUsers()
         const updatedClient = await response.json();
         this.user.history = updatedClient.history;
 

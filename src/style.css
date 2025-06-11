@@ -274,3 +274,7 @@ input[type=number] {
   flex-direction: column;
   gap: 10px;
 }
+
+.history-section{
+  overflow: auto;
+}
