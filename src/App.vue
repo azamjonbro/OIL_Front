@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       // API: 'https://safonon.uz/clients',
-      API: "http://localhost:5000/clients",
+      API: "https://safonon.uz/clients",
       users: [],
       modalVisible: false,
       selectedUser: null,
