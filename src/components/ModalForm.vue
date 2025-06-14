@@ -14,55 +14,55 @@
       <form class="model-form" @submit.prevent="handleSubmit">
 
         <div style="display: flex; gap:10px;">
-          <div style="width:50%;">
+          <div style="width:50%;" class="labelbox">
             <label for="name">Ism</label>
             <input id="name" class="input" v-model="form.name" placeholder="Ismingiz" required />
           </div>
-          <div style="width:50%;">
+          <div style="width:50%;" class="labelbox">
             <label for="phone">Telefon</label>
             <input id="phone" class="input" v-model="form.phone" placeholder="+998901234567" required />
           </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <div style="width: 50%;">
+          <div style="width: 50%;"  class="labelbox">
             <label for="carNumber">Mashina raqami</label>
             <input id="carNumber" class="input" v-model="form.carNumber" placeholder="01A123BC" required />
           </div>
-          <div style="width: 50%;">
+          <div style="width: 50%;"  class="labelbox">
             <label for="carBrand">Avtomobil markasi</label>
             <input id="carBrand" class="input" v-model="form.carBrand" placeholder="Chevrolet" required />
           </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <div style="width: 50%;">
+          <div style="width: 50%;" class="labelbox">
             <label for="oilBrand">Yog' markasi</label>
             <input id="oilBrand" class="input" v-model="form.oilBrand" placeholder="Zic X9" required />
           </div>
-          <div style="width: 50%;">
+          <div style="width: 50%;" class="labelbox">
             <label for="klameter">Kilometr</label>
             <input id="klameter" class="input" v-model="form.klameter" placeholder="100000" required />
           </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <div style="width:50%;">
+          <div style="width:50%;" class="labelbox">
             <label for="filledAt">To‘ldirilgan sana</label>
             <input id="filledAt" class="input" v-model="form.filledAt" type="date" required />
           </div>
-          <div style="width:50%;">
+          <div style="width:50%;" class="labelbox">
             <label for="nextChangeAt">Keyingi almashtirish</label>
             <input id="nextChangeAt" class="input" v-model="form.nextChangeAt" type="date" required />
           </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <div style="width:50%;">
+          <div style="width:50%;" class="labelbox">
             <label for="price">Summa (so‘m)</label>
             <input id="price" class="input" type="number" v-model="form.price" placeholder="100000" required />
           </div>
-          <div style="width:50%;">
+          <div style="width:50%;" class="labelbox">
             <label for="notificationDate">Habarnoma sanasi</label>
             <input id="notificationDate" class="input" type="date" v-model="form.notificationDate" />
           </div>
