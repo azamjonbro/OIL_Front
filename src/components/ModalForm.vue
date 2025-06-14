@@ -193,6 +193,11 @@ export default {
   width: 100%;
   min-width: 400px;
 }
+.labelbox{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 label{
   font-size: 12px;
 }
