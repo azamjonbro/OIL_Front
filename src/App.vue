@@ -119,7 +119,8 @@ export default {
       }
     },
     async createClient(client) {
-
+      console.log(client);
+      
       try {
         const res = await fetch(this.API, {
           method: "POST",

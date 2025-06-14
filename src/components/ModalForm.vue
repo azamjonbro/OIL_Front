@@ -12,44 +12,74 @@
       </div>
 
       <form class="model-form" @submit.prevent="handleSubmit">
+
         <div style="display: flex; gap:10px;">
-          <input style="width:50%" class="input" v-model="form.name" placeholder="Ism" required />
-          <input style="width:50%" class="input" v-model="form.phone" placeholder="Telefon" required />
+          <div style="width:50%;">
+            <label for="name">Ism</label>
+            <input id="name" class="input" v-model="form.name" placeholder="Ismingiz" required />
+          </div>
+          <div style="width:50%;">
+            <label for="phone">Telefon</label>
+            <input id="phone" class="input" v-model="form.phone" placeholder="+998901234567" required />
+          </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <input style="width: 50%;" class="input" v-model="form.carNumber" placeholder="Mashina raqami" required />
-          <input style="width: 50%;" class="input" v-model="form.carBrand" placeholder="Avtomobil markasi" required />
+          <div style="width: 50%;">
+            <label for="carNumber">Mashina raqami</label>
+            <input id="carNumber" class="input" v-model="form.carNumber" placeholder="01A123BC" required />
+          </div>
+          <div style="width: 50%;">
+            <label for="carBrand">Avtomobil markasi</label>
+            <input id="carBrand" class="input" v-model="form.carBrand" placeholder="Chevrolet" required />
+          </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <input style="width: 50%;" class="input" v-model="form.oilBrand" placeholder="Yog' markasi" required />
-          <input style="width: 50%;" class="input" v-model="form.klameter" placeholder="Kilometr" required />
+          <div style="width: 50%;">
+            <label for="oilBrand">Yog' markasi</label>
+            <input id="oilBrand" class="input" v-model="form.oilBrand" placeholder="Zic X9" required />
+          </div>
+          <div style="width: 50%;">
+            <label for="klameter">Kilometr</label>
+            <input id="klameter" class="input" v-model="form.klameter" placeholder="100000" required />
+          </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <input style="width:50%;" class="input" v-model="form.filledAt" type="date" required />
-          <input style="width:50%;" class="input" v-model="form.nextChangeAt" type="date" required />
+          <div style="width:50%;">
+            <label for="filledAt">To‘ldirilgan sana</label>
+            <input id="filledAt" class="input" v-model="form.filledAt" type="date" required />
+          </div>
+          <div style="width:50%;">
+            <label for="nextChangeAt">Keyingi almashtirish</label>
+            <input id="nextChangeAt" class="input" v-model="form.nextChangeAt" type="date" required />
+          </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <input style="width:50%;" class="input" type="number" v-model="form.price" placeholder="Summa" required />
-          <input style="width:50%;" class="input" type="date" v-model="form.notificationDate" placeholder="Habarnoma sanasi" />
+          <div style="width:50%;">
+            <label for="price">Summa (so‘m)</label>
+            <input id="price" class="input" type="number" v-model="form.price" placeholder="100000" required />
+          </div>
+          <div style="width:50%;">
+            <label for="notificationDate">Habarnoma sanasi</label>
+            <input id="notificationDate" class="input" type="date" v-model="form.notificationDate" />
+          </div>
         </div>
 
         <div style="display: flex; gap:10px;">
           <div class="labelbox" style="width:33%;">
-          <label for="moy">Moy filter</label>
-          <input style="width:100%;" class="input" v-model="form.oilFilter" id="moy" placeholder="Moy filtr" />
-          
+            <label for="oilFilter">Moy filter</label>
+            <input id="oilFilter" style="width:100%;" class="input" v-model="form.oilFilter" placeholder="Moy filtr" />
           </div>
           <div class="labelbox" style="width:33%;">
-          <label for="">Vozdux filter</label>
-          <input style="width:100%;" id="vozdux" class="input" v-model="form.airFilter" placeholder="Vozdux filtr" />
+            <label for="airFilter">Vozdux filter</label>
+            <input id="airFilter" style="width:100%;" class="input" v-model="form.airFilter" placeholder="Vozdux filtr" />
           </div>
           <div class="labelbox" style="width:33%;">
-          <label for="salon">Salon filter</label>
-          <input id="salon" style="width:100%;" class="input" v-model="form.cabinFilter" placeholder="Salon filtr" />
+            <label for="cabinFilter">Salon filter</label>
+            <input id="cabinFilter" style="width:100%;" class="input" v-model="form.cabinFilter" placeholder="Salon filtr" />
           </div>
         </div>
 
@@ -162,5 +192,8 @@ export default {
   align-items: center;
   width: 100%;
   min-width: 400px;
+}
+label{
+  font-size: 12px;
 }
 </style>
