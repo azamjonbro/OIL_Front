@@ -34,6 +34,7 @@ html, body,#app{
 .active-body {
   width: 100%;
   height: auto;
+  min-height: 100vh;
   background: var(--bg);
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
