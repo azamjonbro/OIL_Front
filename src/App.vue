@@ -47,7 +47,6 @@ import ModalForm from "./components/ModalForm.vue";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
 import EditClientModal from "./components/EditClientModal.vue";
-
 export default {
   components: { ModalForm, UserCard, UserModal, EditClientModal },
   data() {
@@ -65,6 +64,7 @@ export default {
   computed: {
    filteredUsers() {
     const query = this.searchQuery.toLowerCase().trim();
+    const numberQuery = query.replace(/\D/g, ""); 
     if (!query) return this.users;
 
     return this.users.filter((user) => {
