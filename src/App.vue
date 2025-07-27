@@ -68,7 +68,6 @@ export default {
     if (!query) return this.users;
 
     return this.users.filter((user) => {
-      console.log(user);
       
       return (
         (user.name && user.name.toLowerCase().includes(query)) ||
