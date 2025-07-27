@@ -73,7 +73,7 @@ export default {
       return (
         (user.name && user.name.toLowerCase().includes(query)) ||
         (user.carNumber && user.carNumber.toLowerCase().includes(query)) ||
-        (user.phone && user.phone.toLowerCase().includes(query))
+        (user.phone && user.phone.replace(/\D/g, "").includes(numberQuery))
       );
     });
   }
