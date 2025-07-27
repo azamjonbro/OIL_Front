@@ -63,13 +63,18 @@ export default {
     };
   },
   computed: {
-    filteredUsers() {
-      return this.users.filter(
-        (user) =>
-          user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          user.carNumber.toLowerCase().includes(this.searchQuery.toLowerCase())
+   filteredUsers() {
+    const query = this.searchQuery.toLowerCase().trim();
+    if (!query) return this.users;
+
+    return this.users.filter((user) => {
+      return (
+        (user.name && user.name.toLowerCase().includes(query)) ||
+        (user.carNumber && user.carNumber.toLowerCase().includes(query)) ||
+        (user.phoneNumber && user.phoneNumber.toLowerCase().includes(query))
       );
-    },
+    });
+  }
   },
   methods: {
     showUser(user) {
