@@ -16,6 +16,10 @@
         <span>🛢</span>
         <span>{{ user.history[user.history.length - 1].oilBrand }}</span>
       </div>
+      <div class="box">
+        <span>🚗</span>
+        <span>{{user.carBrand}}</span>
+      </div>
     </div>
 
     <div class="flex items-center gap-2">
@@ -26,7 +30,9 @@
       <span>🔔 {{ formatDate(user.history[user.history.length - 1].notificationDate) }}</span>
       <span>🔁 {{ formatDate(user.history[user.history.length - 1].nextChangeAt) }}</span>
     </div>
-
+    <div class="cash">  
+      <span>💵 {{ user.cash ||  0 }} UZS</span>
+    </div>
     <div class="buttonbox">
       <button class="header-created-btn" @click.stop="onEdit">
         O'zgartirish

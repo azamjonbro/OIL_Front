@@ -130,3 +130,4 @@ export default {
   background-color: #dc2626;
 }
 </style>
+  
