@@ -22,7 +22,7 @@
           <p><strong>🔁 Keyingi almashtirish:</strong> {{ formattedDate(item.nextChangeAt) }}</p>
           <p><strong>🛢 Yog’ markasi:</strong> {{ item.oilBrand }}</p>
           <p><strong>📏 Kilometr:</strong> {{ item.klameter }} km</p>
-          <p><strong>💰 Narxi:</strong> {{ item.price }} so'm</p>
+          <p><strong>💰 Narxi:</strong> {{ formatPrice(item.price) }}</p>
           <p>
             <strong>🔧 Filtrlar:</strong>
             Yog' filtri - {{ yesNo(item.oilFilter) }},
@@ -48,6 +48,10 @@ export default {
     }
   },
   methods: {
+     formatPrice(sum){
+      if (typeof sum !== 'number') return '-';
+      return sum.toLocaleString('uz-Latn-uz', { style: 'currency', currency: 'UZS' });
+    },
     formattedDate(date) {
       if (!date) return '-';
       const d = new Date(date);

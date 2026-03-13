@@ -9,7 +9,11 @@
       </div>
     </header>
 
-    <ModalForm v-if="modalVisible" @close="modalVisible = false" @create="createClient($event)" />
+    <ModalForm
+      v-if="modalVisible"
+      @close="modalVisible = false"
+      @create="createClient($event)"
+    />
 
     <main>
       <section class="users">
@@ -20,24 +24,49 @@
               <b>{{ users.length }}</b>
             </div>
             <div class="right">
-              <input type="text" v-model="searchQuery" placeholder="search" class="SearchUser" />
+              <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="search"
+                class="SearchUser"
+              />
+              <div class="filterUser" @click="filterForDate">
+                <span>♺</span>
+              </div>
             </div>
           </div>
-          <div class="user-list">
-            <UserCard v-for="user in filteredUsers" :key="user._id" :user="user" @delete="deleteUser"
-              @edit="openEditModal" @select="showUser" />
 
-            <p v-if="!filteredUsers.length" style="display: flex; justify-content: center">
+          <div class="user-list">
+            <UserCard
+              v-for="user in filteredUsers"
+              :key="user._id"
+              :user="user"
+              @update="fetchUsers"
+              @delete="deleteUser"
+              @edit="openEditModal"
+              @select="showUser"
+            />
+
+            <p v-if="!filteredUsers.length" style="display:flex;justify-content:center">
               Foydalanuvchi mavjud emas
             </p>
           </div>
         </div>
       </section>
-      <EditClientModal v-if="selectedUser && activeModal === 'edit'" :user="selectedUser" :isOpen="true"
-        @close="selectedUser = null; activeModal = null" @update="saveHistory" />
 
-      <UserModal v-if="selectedUser && activeModal === 'view'" :user="selectedUser"
-        @close="selectedUser = null; activeModal = null" />
+      <EditClientModal
+        v-if="selectedUser && activeModal === 'edit'"
+        :user="selectedUser"
+        :isOpen="true"
+        @close="selectedUser = null; activeModal = null"
+        @update="saveHistory"
+      />
+
+      <UserModal
+        v-if="selectedUser && activeModal === 'view'"
+        :user="selectedUser"
+        @close="selectedUser = null; activeModal = null"
+      />
     </main>
   </div>
 </template>
@@ -47,11 +76,12 @@ import ModalForm from "./components/ModalForm.vue";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
 import EditClientModal from "./components/EditClientModal.vue";
+
 export default {
   components: { ModalForm, UserCard, UserModal, EditClientModal },
+
   data() {
     return {
-      // API: 'https://safonon.uz/clients',
       API: "https://oil.techinfo.uz/clients",
       users: [],
       modalVisible: false,
@@ -59,62 +89,89 @@ export default {
       searchQuery: "",
       isDark: true,
       activeModal: null,
+      sortByNextChange: false
     };
   },
-  computed: {
-   filteredUsers() {
-    const query = this.searchQuery.toLowerCase().trim();
-    const numberQuery = query.replace(/\D/g, ""); 
-    if (!query) return this.users;
 
-    return this.users.filter((user) => {
-      
-      return (
-        (user.name && user.name.toLowerCase().includes(query)) ||
-        (user.carNumber && user.carNumber.toLowerCase().includes(query)) ||
-        (user.phone && user.phone.replace(/\D/g, "").includes(numberQuery))
-      );
-    });
-  }
+  computed: {
+    filteredUsers() {
+      const query = this.searchQuery.toLowerCase().trim();
+      const numberQuery = query.replace(/\D/g, "");
+
+      let result = this.users;
+
+      // 🔍 SEARCH
+      if (query) {
+        result = result.filter(user =>
+          (user.name && user.name.toLowerCase().includes(query)) ||
+          (user.carNumber && user.carNumber.toLowerCase().includes(query)) ||
+          (user.phone && user.phone.replace(/\D/g, "").includes(numberQuery))
+        );
+      }
+
+      // ♺ SORT BY LAST history.nextChangeAt (closest to today)
+      if (this.sortByNextChange) {
+        const today = new Date();
+
+        result = [...result].sort((a, b) => {
+          const aLast = a.history?.[a.history.length - 1];
+          const bLast = b.history?.[b.history.length - 1];
+
+          if (!aLast?.nextChangeAt) return 1;
+          if (!bLast?.nextChangeAt) return -1;
+
+          const aDate = new Date(aLast.nextChangeAt);
+          const bDate = new Date(bLast.nextChangeAt);
+
+          return Math.abs(aDate - today) - Math.abs(bDate - today);
+        });
+      }
+
+      return result;
+    }
   },
+
   methods: {
+    filterForDate() {
+      this.sortByNextChange = !this.sortByNextChange;
+    },
+
     showUser(user) {
       this.selectedUser = user;
-      this.activeModal = 'view';
+      this.activeModal = "view";
     },
+
     openEditModal(user) {
       this.selectedUser = user;
-      this.activeModal = 'edit';
+      this.activeModal = "edit";
     },
+
     async saveHistory(item) {
       try {
-        const response = await fetch(this.API+`/${this.selectedUser._id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+        const res = await fetch(`${this.API}/${this.selectedUser._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(item)
         });
 
-        if (!response.ok) {
-          throw new Error('Serverga yozishda xatolik yuz berdi');
-        }
-        alert("muvaffaqqiyatli qo'shildi")
-        this.fetchUsers()
-        const updatedClient = await response.json();
-        this.user.history = updatedClient.history;
+        if (!res.ok) throw new Error("Server xatosi");
 
-        console.log('Tarix muvaffaqiyatli saqlandi');
+        alert("Muvaffaqiyatli saqlandi ✅");
+        this.fetchUsers();
       } catch (err) {
-        console.error('Xatolik:', err.message);
+        console.error(err);
+        alert("Xatolik yuz berdi ❌");
       }
     },
+
     toggleTheme() {
       this.isDark = !this.isDark;
     },
+
     openModal() {
       this.modalVisible = true;
     },
+
     async fetchUsers() {
       try {
         const res = await fetch(this.API);
@@ -124,53 +181,52 @@ export default {
         console.error(err);
       }
     },
+
     async createClient(client) {
-      console.log(client);
-      
       try {
         const res = await fetch(this.API, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(client),
+          body: JSON.stringify(client)
         });
+
         if (res.ok) {
-          alert("Mijoz muvaffaqiyatli qo‘shildi ✅");
+          alert("Mijoz qo‘shildi ✅");
           this.modalVisible = false;
           this.fetchUsers();
         } else {
           const err = await res.json();
           alert("Xatolik: " + err.error);
         }
-        this.fetchUsers()
       } catch (err) {
         console.error(err);
         alert("Serverga ulanib bo‘lmadi ❌");
       }
     },
+
     async deleteUser(id) {
-      const confirmed = confirm("Rostdan ham o'chirmoqchimisiz?");
-      if (!confirmed) return;
+      if (!confirm("Rostdan ham o‘chirmoqchimisiz?")) return;
+
       try {
         const res = await fetch(`${this.API}/${id}`, { method: "DELETE" });
         if (res.ok) {
           alert("O‘chirildi ✅");
           this.fetchUsers();
         } else {
-          const err = await res.json();
-          alert("Xatolik: " + err.message);
+          alert("O‘chirishda xatolik ❌");
         }
       } catch (err) {
         console.error(err);
-        alert("O‘chirishda xatolik yuz berdi ❌");
       }
-    },
+    }
   },
+
   mounted() {
     this.fetchUsers();
-  },
+  }
 };
 </script>
 
 <style>
-/* Import your styles here or use Tailwind classes */
+/* styles here */
 </style>

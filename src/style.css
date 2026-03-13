@@ -93,6 +93,18 @@ input[type=number] {
   left: auto;
   right: 3px;
 }
+.right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.filterUser{
+  background: var(--btn-hover);
+  color: var(--input-text);
+  padding: 4px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
 .header-created-btn {
   background: var(--btn-bg);
@@ -117,7 +129,9 @@ input[type=number] {
 .model-user.active {
   display: flex;
 }
-
+.justify-between{
+  justify-content: space-between;
+}
 .user-form {
   width: 80%;
   background: var(--bg);

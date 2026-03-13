@@ -14,46 +14,49 @@
       <form class="model-form" @submit.prevent="handleSubmit">
 
         <div style="display: flex; gap:10px;">
-          <div style="width:50%;" class="labelbox">
+          <div style="width:32%;" class="labelbox">
             <label for="name">Ism</label>
             <input id="name" class="input" v-model="form.name" placeholder="Ismingiz" required />
           </div>
-          <div style="width:50%;" class="labelbox">
+          <div style="width:32%;" class="labelbox">
             <label for="phone">Telefon</label>
             <input id="phone" class="input" v-model="form.phone" placeholder="+998901234567" required />
           </div>
-        </div>
-
-        <div style="display: flex; gap:10px;">
-          <div style="width: 50%;"  class="labelbox">
+          <div style="width: 32%;"  class="labelbox">
             <label for="carNumber">Mashina raqami</label>
             <input id="carNumber" class="input" v-model="form.carNumber" placeholder="01A123BC" required />
           </div>
-          <div style="width: 50%;"  class="labelbox">
+        </div>
+
+        
+
+        <div style="display: flex; gap:10px;">
+          <div style="width: 32%;" class="labelbox">
+            <label for="oilBrand">Yog' markasi</label>
+            <input id="oilBrand" class="input" v-model="form.oilBrand" placeholder="Zic X9" required />
+          </div>
+          <div style="width: 32%;" class="labelbox">
+            <label for="klameter">Kilometr</label>
+            <input id="klameter" class="input" v-model="form.klameter" placeholder="100000" required />
+          </div>
+          <div style="width: 32%;"  class="labelbox">
             <label for="carBrand">Avtomobil markasi</label>
             <input id="carBrand" class="input" v-model="form.carBrand" placeholder="Chevrolet" required />
           </div>
         </div>
 
         <div style="display: flex; gap:10px;">
-          <div style="width: 50%;" class="labelbox">
-            <label for="oilBrand">Yog' markasi</label>
-            <input id="oilBrand" class="input" v-model="form.oilBrand" placeholder="Zic X9" required />
-          </div>
-          <div style="width: 50%;" class="labelbox">
-            <label for="klameter">Kilometr</label>
-            <input id="klameter" class="input" v-model="form.klameter" placeholder="100000" required />
-          </div>
-        </div>
-
-        <div style="display: flex; gap:10px;">
-          <div style="width:50%;" class="labelbox">
+          <div style="width:32%;" class="labelbox">
             <label for="filledAt">To‘ldirilgan sana</label>
             <input id="filledAt" class="input" v-model="form.filledAt" type="date" required />
           </div>
-          <div style="width:50%;" class="labelbox">
+          <div style="width:32%;" class="labelbox">
             <label for="nextChangeAt">Keyingi almashtirish</label>
             <input id="nextChangeAt" class="input" v-model="form.nextChangeAt" type="date" required />
+          </div>
+          <div style="width:32%;" class="labelbox">
+            <label for="notificationDate">Habarnoma sanasi</label>
+            <input id="notificationDate" class="input" type="date" v-model="form.notificationDate" />
           </div>
         </div>
 
@@ -63,9 +66,10 @@
             <input id="price" class="input" type="number" v-model="form.price" placeholder="100000" required />
           </div>
           <div style="width:50%;" class="labelbox">
-            <label for="notificationDate">Habarnoma sanasi</label>
-            <input id="notificationDate" class="input" type="date" v-model="form.notificationDate" />
+            <label for="DecreptedSumma">Ayriladigan (so‘m)</label>
+            <input id="DecreptedSumma" class="input" type="number" v-model="form.DecreptedSumma" placeholder="100000" required />
           </div>
+          
         </div>
 
         <div style="display: flex; gap:10px;">
@@ -112,7 +116,8 @@ export default {
         notificationDate: '',
         oilFilter: '0',
         airFilter: '0',
-        cabinFilter: '0'
+        cabinFilter: '0',
+        DecreptedSumma: ""
       }
     };
   },
@@ -152,12 +157,15 @@ export default {
       const carNumberRegex = /^[A-Za-z0-9]{5,10}$/;
       const brandRegex = /^[\w\s\-]{2,20}$/;
       const numberRegex = /^[0-9]{1,6}$/;
+      const decreasedSummaRegex = /^[0-9]{1,6}$/;
 
       if (!nameRegex.test(this.form.name)) return 'Ism noto‘g‘ri yoki uzun';
       if (!phoneRegex.test(this.form.phone)) return 'Telefon raqam noto‘g‘ri';
       if (!carNumberRegex.test(this.form.carNumber)) return 'Avto raqam noto‘g‘ri';
       if (!brandRegex.test(this.form.carBrand) || !brandRegex.test(this.form.oilBrand)) return 'Marka noto‘g‘ri';
       if (!numberRegex.test(this.form.klameter)) return 'Kilometr noto‘g‘ri';
+      if (!numberRegex.test(this.form.price)) return 'Summa noto‘g‘ri';
+      if (this.form.DecreptedSumma && !decreasedSummaRegex.test(this.form.DecreptedSumma)) return 'Ayriladigan summa noto‘g‘ri';
 
       return null;
     },
@@ -171,6 +179,8 @@ export default {
       this.$emit('create', {
         ...this.form,
         carNumber: this.form.carNumber.toUpperCase(),
+        price: Number(this.form.price),
+        DecreptedSumma: this.form.DecreptedSumma ? Number(this.form.DecreptedSumma) : null,
         filledAt: new Date(this.form.filledAt),
         nextChangeAt: new Date(this.form.nextChangeAt),
         notificationDate: this.form.notificationDate ? new Date(this.form.notificationDate) : null
@@ -182,7 +192,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.user-form {
+  padding: 30px;
+  border-radius: 8px;
+  width: 95vw !important;
+}
 .modal {
   position: fixed;
   inset: 0;
