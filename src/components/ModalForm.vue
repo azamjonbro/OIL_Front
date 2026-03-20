@@ -65,20 +65,11 @@
             <label for="notificationDate">Habarnoma sanasi</label>
             <input id="notificationDate" class="input" type="date" v-model="form.notificationDate" />
           </div>
-        </div>
-
-        <div style="display: flex; gap:10px;">
           <div style="width:50%;" class="labelbox">
             <label for="price">Summa (so‘m)</label>
             <input id="price" class="input" type="number" v-model="form.price" placeholder="100000" required />
           </div>
-          <div style="width:50%;" class="labelbox">
-            <label for="DecreptedSumma">Ayriladigan (so‘m)</label>
-            <input id="DecreptedSumma" class="input" type="number" v-model="form.DecreptedSumma" placeholder="100000" required />
-          </div>
-          
         </div>
-
         <div style="display: flex; gap:10px;">
           <div class="labelbox" style="width:33%;">
             <label for="oilFilter">Moy filter</label>
@@ -124,7 +115,7 @@ export default {
         oilFilter: '0',
         airFilter: '0',
         cabinFilter: '0',
-        DecreptedSumma: ""
+        DecreptedSumma: 0
       }
     };
   },
