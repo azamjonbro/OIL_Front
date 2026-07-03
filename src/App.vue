@@ -30,7 +30,11 @@
       </div>
     </header>
 
-    <ModalForm v-if="modalVisible" @close="modalVisible = false" @create="createClient($event)" />
+    <ModalForm
+      v-if="modalVisible"
+      @close="modalVisible = false"
+      @create="createClient($event)"
+    />
 
     <!-- Main Container -->
     <main class="container main-content-area">
@@ -133,10 +137,6 @@ export default {
   },
   data() {
     return {
-<<<<<<< HEAD
-      // API: 'https://safonon.uz/clients',
-=======
->>>>>>> da38f96 (added)
       API: "https://oil.techinfo.uz/clients",
       users: [],
       currentTab: "users",
@@ -148,6 +148,7 @@ export default {
       loadingNotifications: false,
     };
   },
+
   computed: {
     filteredUsers() {
       const query = this.searchQuery.toLowerCase().trim();
@@ -230,6 +231,7 @@ export default {
       };
     },
   },
+
   methods: {
     switchTab(tab) {
       this.currentTab = tab;
@@ -239,10 +241,12 @@ export default {
       this.selectedUser = user;
       this.activeModal = "view";
     },
+
     openEditModal(user) {
       this.selectedUser = user;
       this.activeModal = "edit";
     },
+
     async saveHistory(item) {
       try {
         const response = await fetch(`${this.API}/${this.selectedUser._id}`, {
@@ -267,6 +271,7 @@ export default {
         console.error("Xatolik:", err.message);
       }
     },
+
     toggleTheme() {
       this.isDark = !this.isDark;
       localStorage.setItem("theme", this.isDark ? "dark" : "light");
@@ -279,9 +284,11 @@ export default {
         document.body.classList.remove("active-body");
       }
     },
+
     openModal() {
       this.modalVisible = true;
     },
+
     async fetchUsers() {
       try {
         const res = await fetch(this.API);
@@ -291,15 +298,17 @@ export default {
         console.error(err);
       }
     },
+
     async createClient(client) {
       try {
         const res = await fetch(this.API, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(client),
+          body: JSON.stringify(client)
         });
+
         if (res.ok) {
-          alert("Mijoz muvaffaqiyatli qo‘shildi ✅");
+          alert("Mijoz qo‘shildi ✅");
           this.modalVisible = false;
           this.fetchUsers();
         } else {
@@ -311,21 +320,20 @@ export default {
         alert("Serverga ulanib bo‘lmadi ❌");
       }
     },
+
     async deleteUser(id) {
-      const confirmed = confirm("Rostdan ham o'chirmoqchimisiz?");
-      if (!confirmed) return;
+      if (!confirm("Rostdan ham o‘chirmoqchimisiz?")) return;
+
       try {
         const res = await fetch(`${this.API}/${id}`, { method: "DELETE" });
         if (res.ok) {
           alert("O‘chirildi ✅");
           this.fetchUsers();
         } else {
-          const err = await res.json();
-          alert("Xatolik: " + err.message);
+          alert("O‘chirishda xatolik ❌");
         }
       } catch (err) {
         console.error(err);
-        alert("O‘chirishda xatolik yuz berdi ❌");
       }
     },
     async confirmNotification(clientId) {
@@ -396,6 +404,7 @@ export default {
       }
     },
   },
+
   mounted() {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -403,7 +412,7 @@ export default {
     }
     this.applyTheme();
     this.fetchUsers();
-  },
+  }
 };
 </script>
 

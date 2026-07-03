@@ -114,26 +114,52 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  name: 'UserCard',
+  name: "UserCard",
   props: {
     user: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     handleSelect() {
-      this.$emit('select', this.user);
+      this.$emit("select", this.user);
     },
     onEdit() {
-      this.$emit('edit', this.user);
+      this.$emit("edit", this.user);
     },
     onDelete() {
-      this.$emit('delete', this.user._id);
+      this.$emit("delete", this.user._id);
     },
+    // incrbutton(id) {
+    //   console.log(id);
+      
+    // }, 
+    async decrbutton(id) {
+      let res = await axios.post("https://oil.techinfo.uz/clients/" + id + "/decrement-cash", {
+        amount: parseFloat(this.user.increment) || 0,
+      })
+      if(res.status === 200) {
+        alert("Muvaffaqiyatli ayrildi");
+        this.$emit("update");
+      }
+      else {
+        alert("Xatolik yuz berdi");
+      }
+      
+    },
+    formatPrice(sum) {
+      if (typeof sum !== "number") return "-";
+      return sum.toLocaleString("uz-Latn-uz", {
+        style: "currency",
+        currency: "UZS",
+      });
+    },
+
     formatDate(date) {
-      if (!date || typeof date !== 'string') return '-';
+      if (!date || typeof date !== "string") return "-";
       const d = new Date(date);
       if (isNaN(d.getTime())) return '-';
       return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')}.${d.getFullYear()}`;
@@ -384,5 +410,38 @@ export default {
 
 .delete-btn-card:hover {
   background: rgba(255, 77, 79, 0.18);
+}
+.pricebox{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.incr input {
+  width: 120px;
+  padding: 4px;
+  border-radius: 6px;
+
+
+}
+
+.incr button {
+  width: 80px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.incr .add {
+  background: #22c55e;
+  color: white;
+}
+
+.remove {
+  background: #ef4444;
+  color: white;
 }
 </style>
