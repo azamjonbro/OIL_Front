@@ -98,6 +98,18 @@ input[type=number] {
   align-items: center;
   gap: 12px;
 }
+.right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.filterUser{
+  background: var(--btn-hover);
+  color: var(--input-text);
+  padding: 4px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
 .header-created-btn {
   background: var(--btn-bg);
@@ -267,7 +279,9 @@ input[type=number] {
   padding: 16px;
   animation: fadeIn 0.3s ease forwards;
 }
-
+.justify-between{
+  justify-content: space-between;
+}
 .user-form {
   background: var(--card-bg);
   border-radius: 20px;
