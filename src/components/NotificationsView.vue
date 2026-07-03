@@ -108,12 +108,17 @@
 
           <!-- Actions -->
           <div class="card-actions">
-            <button class="action-btn sms-btn" @click="handleOpenSMS(client)">
+            <a
+              :href="'sms:' + formatPhoneForSMS(client.phone)"
+              class="action-btn sms-btn"
+              @click="handleCopySMS(client, $event)"
+              style="text-decoration: none;"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
               </svg>
               SMS ochish
-            </button>
+            </a>
             <button class="action-btn confirm-btn" @click="handleConfirm(client)">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
                 <polyline points="20 6 9 17 4 12"/>
@@ -273,7 +278,11 @@ export default {
         return "status-green";
       }
     },
-    handleOpenSMS(client) {
+    formatPhoneForSMS(phone) {
+      if (!phone) return "";
+      return phone.replace(/[^\d+]/g, "");
+    },
+    handleCopySMS(client, event) {
       const latest = this.getLatestHistory(client);
       if (!latest) return;
 
@@ -291,19 +300,22 @@ Avtomobilingizga xizmat ko'rsatish vaqti keldi.
 
 Sizni servisimizda kutamiz.`;
 
-      // Copy to clipboard
       navigator.clipboard
         .writeText(template)
         .then(() => {
-          alert("SMS matni nusxalandi! Endi ochilayotgan oynaga joylashtiring (Paste).");
-          const formattedPhone = client.phone.replace(/[^\d+]/g, "");
-          window.location.href = `sms:${formattedPhone}`;
+          console.log("SMS copied successfully");
         })
         .catch((err) => {
-          console.error("Clipboard xatosi:", err);
-          const formattedPhone = client.phone.replace(/[^\d+]/g, "");
-          window.location.href = `sms:${formattedPhone}`;
+          console.error("Clipboard copy error:", err);
         });
+
+      const phone = this.formatPhoneForSMS(client.phone);
+      const smsUrl = `sms:${phone}`;
+
+      if (window.Telegram?.WebApp?.openLink) {
+        if (event) event.preventDefault();
+        window.Telegram.WebApp.openLink(smsUrl);
+      }
     },
     async handleConfirm(client) {
       if (confirm(`${client.name} uchun notification yuborilganligini tasdiqlaysizmi?`)) {
