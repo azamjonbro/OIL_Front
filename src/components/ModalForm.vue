@@ -3,12 +3,12 @@
     <div class="user-form container">
       <div class="model-header">
         <h2>Yangi mijoz</h2>
-        <div
-          style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 24px; color:rgb(187, 40, 40); cursor:pointer"
-          @click="close"
-        >
-          X
-        </div>
+        <button class="modal-close-btn" @click="close" type="button" aria-label="Yopish">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
 
       <form class="model-form" @submit.prevent="handleSubmit">
@@ -71,6 +71,17 @@
           </div>
         </div>
         <div style="display: flex; gap:10px;">
+          <div style="width:50%;" class="labelbox">
+            <label for="cost">Xarajat Tannarxi (so'm)</label>
+            <input id="cost" class="input" type="number" v-model.number="form.cost" placeholder="80000" />
+          </div>
+          <div style="width:50%;" class="labelbox">
+            <label for="master">Usta ismi</label>
+            <input id="master" class="input" type="text" v-model="form.master" placeholder="Usta ismi" />
+          </div>
+        </div>
+
+        <div style="display: flex; gap:10px;">
           <div class="labelbox" style="width:33%;">
             <label for="oilFilter">Moy filter</label>
             <input id="oilFilter" style="width:100%;" class="input" v-model="form.oilFilter" placeholder="Moy filtr" />
@@ -115,7 +126,8 @@ export default {
         oilFilter: '0',
         airFilter: '0',
         cabinFilter: '0',
-        DecreptedSumma: 0
+        cost: '',
+        master: 'Asosiy usta'
       }
     };
   },
