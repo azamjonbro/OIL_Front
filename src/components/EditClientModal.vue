@@ -3,7 +3,12 @@
     <div class="user-form container">
       <div class="model-header">
         <h2>Mijozni tahrirlash</h2>
-        <div class="close-btn" @click="close">X</div>
+        <button class="modal-close-btn" @click="close" type="button" aria-label="Yopish">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
 
       <form class="model-form" @submit.prevent="handleUpdate">
@@ -12,13 +17,17 @@
           <input style="width:50%;" class="input" v-model="form.nextChangeAt" type="date" required />
         </div>
         <div class="flex gap-2">
-          <input style="width:50%;" class="input" v-model.number="form.price" placeholder="Summa" required />
+          <input style="width:50%;" class="input" v-model.number="form.price" placeholder="Summa (so'm)" required />
           <input style="width:50%;" class="input" v-model="form.notificationDate" type="date" required />
         </div>
         <div class="flex gap-2">
-  <input style="width:50%;" class="input" v-model="form.klameter" placeholder="Klametr" required />
-  <input style="width:50%;" class="input" v-model="form.oilBrand" placeholder="Moy brendi" required />
-</div>
+          <input style="width:50%;" class="input" v-model.number="form.cost" placeholder="Xarajat tannarxi (so'm)" required />
+          <input style="width:50%;" class="input" v-model="form.master" placeholder="Usta ismi" required />
+        </div>
+        <div class="flex gap-2">
+          <input style="width:50%;" class="input" v-model="form.klameter" placeholder="Klametr" required />
+          <input style="width:50%;" class="input" v-model="form.oilBrand" placeholder="Moy brendi" required />
+        </div>
         <div class="flex gap-2" style="gap: 10px;">
           <input style="width:33%;" class="input" v-model="form.oilFilter" placeholder="Moy filtri" required />
           <input style="width:33%;" class="input" v-model="form.airFilter" placeholder="Vozdux filtri" required />
@@ -35,7 +44,7 @@
         <ul class="history-list">
           <li v-for="(h, index) in user.history" :key="index">
             {{ formatDate(h.filledAt) }} ➡ {{ formatDate(h.nextChangeAt) }}, {{ h.price }} so‘m
-            | Filtrlar: {{ h.oilFilter }}, {{ h.airFilter }}, {{ h.salonFilter }}
+            | Usta: {{ h.master || 'Asosiy usta' }} | Xarajat: {{ h.cost || 0 }} UZS
           </li>
         </ul>
       </div>
@@ -62,6 +71,8 @@ export default {
         salonFilter: '0',
         klameter:'',
         oilBrand:"",
+        cost: '',
+        master: 'Asosiy usta'
       }
     };
   },
@@ -85,7 +96,9 @@ export default {
         airFilter: this.form.airFilter,
         cabinFilter: this.form.salonFilter,
         klameter:this.form.klameter,
-        oilBrand:this.form.oilBrand
+        oilBrand:this.form.oilBrand,
+        cost: parseFloat(this.form.cost) || 0,
+        master: this.form.master
       };
 
       this.$emit('update', historyItem);
