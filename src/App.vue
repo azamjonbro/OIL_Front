@@ -133,10 +133,6 @@ export default {
   },
   data() {
     return {
-<<<<<<< HEAD
-      // API: 'https://safonon.uz/clients',
-=======
->>>>>>> da38f96 (added)
       API: "https://oil.techinfo.uz/clients",
       users: [],
       currentTab: "users",
