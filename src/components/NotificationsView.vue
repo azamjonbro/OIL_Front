@@ -111,7 +111,7 @@
             <a
               :href="'sms:' + formatPhoneForSMS(client.phone)"
               class="action-btn sms-btn"
-              @click="handleCopySMS(client)"
+              @click="handleCopySMS(client, $event)"
               style="text-decoration: none;"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
@@ -282,7 +282,7 @@ export default {
       if (!phone) return "";
       return phone.replace(/[^\d+]/g, "");
     },
-    handleCopySMS(client) {
+    handleCopySMS(client, event) {
       const latest = this.getLatestHistory(client);
       if (!latest) return;
 
@@ -308,6 +308,14 @@ Sizni servisimizda kutamiz.`;
         .catch((err) => {
           console.error("Clipboard copy error:", err);
         });
+
+      const phone = this.formatPhoneForSMS(client.phone);
+      const smsUrl = `sms:${phone}`;
+
+      if (window.Telegram?.WebApp?.openLink) {
+        if (event) event.preventDefault();
+        window.Telegram.WebApp.openLink(smsUrl);
+      }
     },
     async handleConfirm(client) {
       if (confirm(`${client.name} uchun notification yuborilganligini tasdiqlaysizmi?`)) {
