@@ -290,8 +290,7 @@ export default {
 
 Eslatib o'tamiz.
 
-Sizning avtomobilingizda oxirgi moy almashtirish sanasi:
-${this.formatDate(latest.filledAt)}
+Oxirgi moy almashtirish: ${this.formatDate(latest.filledAt)} da (${latest.klameter || 0} km masofada) amalga oshirilgan.
 
 Keyingi moy almashtirish tavsiya etilgan sana:
 ${this.formatDate(latest.nextChangeAt)}
