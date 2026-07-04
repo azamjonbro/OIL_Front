@@ -378,13 +378,9 @@ Sizni servisimizda kutamiz.`;
 
 .filter-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
-  overflow-x: auto;
   padding-bottom: 4px;
-}
-
-.filter-tabs::-webkit-scrollbar {
-  display: none;
 }
 
 .filter-btn {
