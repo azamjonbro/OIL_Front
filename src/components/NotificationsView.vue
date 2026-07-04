@@ -156,6 +156,7 @@ export default {
         { label: "Ertaga", value: "tomorrow" },
         { label: "Shu hafta", value: "week" },
         { label: "Muddati o'tgan", value: "overdue" },
+        { label: "Qaytmaganlar (3+ oy)", value: "unreturned" },
       ],
     };
   },
@@ -170,6 +171,18 @@ export default {
       return this.clients.filter((client) => {
         const latest = this.getLatestHistory(client);
         if (!latest) return false;
+
+        if (this.activeFilter === "unreturned") {
+          if (client.history && client.history.length === 1) {
+            if (!latest.filledAt) return false;
+            const filledAt = new Date(latest.filledAt);
+            if (isNaN(filledAt.getTime())) return false;
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+            return filledAt <= threeMonthsAgo;
+          }
+          return false;
+        }
 
         const notifDate = latest.notificationDate ? new Date(latest.notificationDate) : null;
         return !notifDate || notifDate <= maxDate;
@@ -219,6 +232,8 @@ export default {
           return d.getTime() <= endOfWeek.getTime();
         } else if (this.activeFilter === "overdue") {
           return nextChange && nextChange < new Date();
+        } else if (this.activeFilter === "unreturned") {
+          return true;
         }
 
         return true;
