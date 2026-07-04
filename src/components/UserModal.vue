@@ -68,6 +68,19 @@
             <span class="spec-val font-bold text-green">{{ user.cash || 0 }} UZS</span>
           </div>
         </div>
+
+        <div class="spec-tile profit">
+          <span class="spec-icon text-green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </span>
+          <div class="spec-info">
+            <span class="spec-label">Umumiy Foyda</span>
+            <span class="spec-val font-bold text-green">+{{ formatCurrency(totalProfit) }} UZS</span>
+          </div>
+        </div>
       </div>
 
       <!-- History Timeline List -->
@@ -180,6 +193,14 @@ export default {
     user: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    totalProfit() {
+      if (!this.user.history || !this.user.history.length) return 0;
+      return this.user.history.reduce((sum, item) => {
+        return sum + ((item.price || 0) - (item.cost || 0));
+      }, 0);
     },
   },
   methods: {
@@ -478,5 +499,22 @@ export default {
 .no-history-icon {
   font-size: 32px;
   margin-bottom: 8px;
+}
+
+.spec-tile.profit {
+  grid-column: span 2;
+}
+
+.spec-icon.text-green {
+  color: #52c41a;
+}
+
+@media (max-width: 576px) {
+  .timeline-node {
+    display: none;
+  }
+  .timeline-list {
+    padding-left: 0;
+  }
 }
 </style>
