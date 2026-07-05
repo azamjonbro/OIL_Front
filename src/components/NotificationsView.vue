@@ -184,7 +184,9 @@ export default {
           return false;
         }
 
-        const notifDate = latest.notificationDate ? new Date(latest.notificationDate) : null;
+        const notifDate = latest.notificationDate 
+          ? new Date(latest.notificationDate) 
+          : (latest.nextChangeAt ? new Date(latest.nextChangeAt) : null);
         return !notifDate || notifDate <= maxDate;
       });
     },

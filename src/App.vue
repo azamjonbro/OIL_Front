@@ -170,7 +170,9 @@ export default {
       return this.users.filter((user) => {
         if (!user.history || user.history.length === 0) return false;
         const latest = user.history[user.history.length - 1];
-        const notifDate = latest.notificationDate ? new Date(latest.notificationDate) : null;
+        const notifDate = latest.notificationDate 
+          ? new Date(latest.notificationDate) 
+          : (latest.nextChangeAt ? new Date(latest.nextChangeAt) : null);
         return !notifDate || notifDate <= today;
       }).length;
     },
@@ -189,7 +191,9 @@ export default {
         if (!user.history || user.history.length === 0) return;
         const latest = user.history[user.history.length - 1];
 
-        const notifDate = latest.notificationDate ? new Date(latest.notificationDate) : null;
+        const notifDate = latest.notificationDate 
+          ? new Date(latest.notificationDate) 
+          : (latest.nextChangeAt ? new Date(latest.nextChangeAt) : null);
         const nextChange = latest.nextChangeAt ? new Date(latest.nextChangeAt) : null;
 
         // Check if notification is due: empty/missing notificationDate OR <= today
