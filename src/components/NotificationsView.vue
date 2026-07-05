@@ -173,18 +173,20 @@ export default {
         if (!latest) return false;
 
         if (this.activeFilter === "unreturned") {
-          if (client.history && client.history.length === 1) {
-            if (!latest.filledAt) return false;
-            const filledAt = new Date(latest.filledAt);
-            if (isNaN(filledAt.getTime())) return false;
-            const threeMonthsAgo = new Date();
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-            return filledAt <= threeMonthsAgo;
+          if (client.history && client.history.length >= 1) {
+            if (!latest.nextChangeAt) return false;
+            const nextChange = new Date(latest.nextChangeAt);
+            if (isNaN(nextChange.getTime())) return false;
+            const threeMonthsAfter = new Date(nextChange);
+            threeMonthsAfter.setMonth(threeMonthsAfter.getMonth() + 3);
+            return threeMonthsAfter <= today;
           }
           return false;
         }
 
-        const notifDate = latest.notificationDate ? new Date(latest.notificationDate) : null;
+        const notifDate = latest.notificationDate 
+          ? new Date(latest.notificationDate) 
+          : (latest.nextChangeAt ? new Date(latest.nextChangeAt) : null);
         return !notifDate || notifDate <= maxDate;
       });
     },
@@ -302,14 +304,14 @@ export default {
       if (!latest) return;
 
       const template = `Assalomu alaykum ${client.name}.
-
+${client.carBrand || ""} / ${client.carNumber || ""}
 Eslatib o'tamiz.
 
-Oxirgi moy almashtirish: ${this.formatDate(latest.filledAt)} da (${latest.klameter || 0} km masofada) amalga oshirilgan.
+Oxirgi moy almashtirish: ${this.formatDate(latest.filledAt)} da amalga oshirilgan.
 
 Keyingi moy almashtirish tavsiya etilgan sana:
 ${this.formatDate(latest.nextChangeAt)}
-
+${parseInt(latest.klameter || 0) + 8000} km masofada
 Avtomobilingizga xizmat ko'rsatish vaqti keldi.
 
 Sizni servisimizda kutamiz.`;
