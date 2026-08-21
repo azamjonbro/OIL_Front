@@ -7,12 +7,20 @@
           <h2 class="modal-main-title">{{ user.name }}</h2>
           <p class="modal-subtitle">Barcha moy almashtirish tarixi</p>
         </div>
-        <button class="modal-close-btn" @click="$emit('close')" type="button" aria-label="Yopish">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
+        <div style="display: flex; gap: 10px;">
+          <button class="modal-close-btn" @click="$emit('edit-details')" type="button" aria-label="Tahrirlash">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+          </button>
+          <button class="modal-close-btn" @click="$emit('close')" type="button" aria-label="Yopish">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Client Quick Specs Grid -->

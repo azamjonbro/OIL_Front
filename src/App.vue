@@ -100,10 +100,19 @@
         @update="saveHistory"
       />
 
+      <EditUserDetailsModal
+        v-if="selectedUser && activeModal === 'editDetails'"
+        :user="selectedUser"
+        :isOpen="true"
+        @close="selectedUser = null; activeModal = null"
+        @update="updateUserDetails"
+      />
+
       <UserModal
         v-if="selectedUser && activeModal === 'view'"
         :user="selectedUser"
         @close="selectedUser = null; activeModal = null"
+        @edit-details="activeModal = 'editDetails'"
       />
     </main>
 
@@ -121,6 +130,7 @@ import ModalForm from "./components/ModalForm.vue";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
 import EditClientModal from "./components/EditClientModal.vue";
+import EditUserDetailsModal from "./components/EditUserDetailsModal.vue";
 import BottomNavigation from "./components/BottomNavigation.vue";
 import NotificationsView from "./components/NotificationsView.vue";
 import StatisticsView from "./components/StatisticsView.vue";
@@ -131,6 +141,7 @@ export default {
     UserCard,
     UserModal,
     EditClientModal,
+    EditUserDetailsModal,
     BottomNavigation,
     NotificationsView,
     StatisticsView,
@@ -273,6 +284,35 @@ export default {
         }
       } catch (err) {
         console.error("Xatolik:", err.message);
+      }
+    },
+
+    async updateUserDetails(updatedData) {
+      try {
+        const response = await fetch(`${this.API}/${this.selectedUser._id}/edit`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedData),
+        });
+
+        if (!response.ok) {
+          throw new Error("Serverga yozishda xatolik yuz berdi");
+        }
+        alert("Mijoz ma'lumotlari muvaffaqqiyatli yangilandi");
+        this.fetchUsers();
+        
+        const updatedClient = await response.json();
+        if (this.selectedUser) {
+          this.selectedUser.name = updatedClient.name;
+          this.selectedUser.phone = updatedClient.phone;
+          this.selectedUser.carNumber = updatedClient.carNumber;
+          this.selectedUser.carBrand = updatedClient.carBrand;
+        }
+      } catch (err) {
+        console.error("Xatolik:", err.message);
+        alert("Yangilashda xatolik yuz berdi");
       }
     },
 
