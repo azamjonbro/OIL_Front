@@ -138,7 +138,7 @@ export default {
       
     // }, 
     async decrbutton(id) {
-      let res = await axios.post("https://oil.techinfo.uz/clients/" + id + "/decrement-cash", {
+      let res = await axios.post("https://oil.sds-max.uz/clients/" + id + "/decrement-cash", {
         amount: parseFloat(this.user.increment) || 0,
       })
       if(res.status === 200) {
