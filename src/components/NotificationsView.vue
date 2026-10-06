@@ -37,9 +37,19 @@
 
     <div v-else-if="filteredClients.length === 0" class="empty-state">
       <div class="empty-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
         </svg>
       </div>
       <h3>Xabarnomalar mavjud emas</h3>
@@ -58,8 +68,21 @@
             <div>
               <h3 class="client-name">{{ client.name }}</h3>
               <p class="client-phone">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="margin-right: 4px; vertical-align: middle"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
                 </svg>
                 <span>{{ client.phone }}</span>
               </p>
@@ -73,21 +96,43 @@
           <div class="car-info">
             <div class="info-badge">
               <span class="info-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="1" y="3" width="22" height="13" rx="2" ry="2"/>
-                  <path d="M4 21h4a2 2 0 0 0 2-2v-2H2v2a2 2 0 0 0 2 2z"/>
-                  <path d="M20 21h-4a2 2 0 0 0-2-2v-2h8v2a2 2 0 0 0-2 2z"/>
-                  <circle cx="6" cy="14" r="1"/>
-                  <circle cx="18" cy="14" r="1"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="1" y="3" width="22" height="13" rx="2" ry="2" />
+                  <path d="M4 21h4a2 2 0 0 0 2-2v-2H2v2a2 2 0 0 0 2 2z" />
+                  <path d="M20 21h-4a2 2 0 0 0-2-2v-2h8v2a2 2 0 0 0-2 2z" />
+                  <circle cx="6" cy="14" r="1" />
+                  <circle cx="18" cy="14" r="1" />
                 </svg>
               </span>
               <span class="info-val font-bold">{{ client.carNumber }}</span>
             </div>
             <div class="info-badge">
               <span class="info-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
-                  <line x1="7" y1="7" x2="7.01" y2="7"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+                  />
+                  <line x1="7" y1="7" x2="7.01" y2="7" />
                 </svg>
               </span>
               <span class="info-val">{{ client.carBrand }}</span>
@@ -98,12 +143,20 @@
           <div class="dates-box">
             <div class="date-item">
               <span class="date-label">Oxirgi moy almashtirish:</span>
-              <span class="date-val">{{ formatDate(getLatestHistory(client)?.filledAt) }}</span>
+              <span class="date-val">{{
+                formatDate(getLatestHistory(client)?.filledAt)
+              }}</span>
             </div>
             <div class="date-item">
               <span class="date-label">Keyingi tavsiya etilgan sana:</span>
-              <span class="date-val highlight">{{ formatDate(getLatestHistory(client)?.nextChangeAt) }}</span>
+              <span class="date-val highlight">{{
+                formatDate(getLatestHistory(client)?.nextChangeAt)
+              }}</span>
             </div>
+          </div>
+
+          <div class="sms-kilometer">
+            {{ getSmsKilometer(client) ?? "—" }} km da kelishingiz kerak
           </div>
 
           <!-- Actions -->
@@ -112,16 +165,43 @@
               :href="'sms:' + formatPhoneForSMS(client.phone)"
               class="action-btn sms-btn"
               @click="handleCopySMS(client, $event)"
-              style="text-decoration: none;"
+              style="text-decoration: none"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 4px"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                />
               </svg>
               SMS ochish
             </a>
-            <button class="action-btn confirm-btn" @click="handleConfirm(client)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
-                <polyline points="20 6 9 17 4 12"/>
+            <button
+              class="action-btn confirm-btn"
+              @click="handleConfirm(client)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 4px"
+              >
+                <polyline points="20 6 9 17 4 12" />
               </svg>
               Tasdiqlash
             </button>
@@ -184,9 +264,11 @@ export default {
           return false;
         }
 
-        const notifDate = latest.notificationDate 
-          ? new Date(latest.notificationDate) 
-          : (latest.nextChangeAt ? new Date(latest.nextChangeAt) : null);
+        const notifDate = latest.notificationDate
+          ? new Date(latest.notificationDate)
+          : latest.nextChangeAt
+            ? new Date(latest.nextChangeAt)
+            : null;
         return !notifDate || notifDate <= maxDate;
       });
     },
@@ -205,8 +287,12 @@ export default {
         if (!matchesSearch) return false;
 
         const latest = this.getLatestHistory(client);
-        const notifDate = latest?.notificationDate ? new Date(latest.notificationDate) : null;
-        const nextChange = latest?.nextChangeAt ? new Date(latest.nextChangeAt) : null;
+        const notifDate = latest?.notificationDate
+          ? new Date(latest.notificationDate)
+          : null;
+        const nextChange = latest?.nextChangeAt
+          ? new Date(latest.nextChangeAt)
+          : null;
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -246,6 +332,11 @@ export default {
     getLatestHistory(client) {
       if (!client.history || client.history.length === 0) return null;
       return client.history[client.history.length - 1];
+    },
+    getSmsKilometer(client) {
+      const latest = this.getLatestHistory(client);
+      const kilometer = Number.parseInt(latest?.klameter, 10);
+      return Number.isFinite(kilometer) ? kilometer : null;
     },
     formatDate(dateStr) {
       if (!dateStr) return "-";
@@ -311,7 +402,7 @@ Oxirgi moy almashtirish: ${this.formatDate(latest.filledAt)} da amalga oshirilga
 
 Keyingi moy almashtirish tavsiya etilgan sana:
 ${this.formatDate(latest.nextChangeAt)}
-${parseInt(latest.klameter || 0) + 8000} km masofada
+${this.getSmsKilometer(client) ?? "—"} km masofada
 Avtomobilingizga xizmat ko'rsatish vaqti keldi.
 
 Sizni servisimizda kutamiz.`;
@@ -334,7 +425,11 @@ Sizni servisimizda kutamiz.`;
       }
     },
     async handleConfirm(client) {
-      if (confirm(`${client.name} uchun notification yuborilganligini tasdiqlaysizmi?`)) {
+      if (
+        confirm(
+          `${client.name} uchun notification yuborilganligini tasdiqlaysizmi?`,
+        )
+      ) {
         this.$emit("confirm-notification", client._id);
       }
     },
@@ -418,7 +513,9 @@ Sizni servisimizda kutamiz.`;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .notification-card:hover {
@@ -527,6 +624,13 @@ Sizni servisimizda kutamiz.`;
 
 .date-val.highlight {
   color: #3f8cff;
+}
+
+.sms-kilometer {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .card-actions {
