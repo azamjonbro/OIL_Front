@@ -148,7 +148,7 @@ export default {
   },
   data() {
     return {
-      API: "https://oil.sds-max.uz/clients",
+      API: "https://oil.techinfo.uz/clients",
       users: [],
       currentTab: "users",
       modalVisible: false,
